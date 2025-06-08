@@ -2,20 +2,19 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ALTROVE Leukerbad</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    html, body {
+    /* Stili base */
+    body {
       margin: 0;
       padding: 0;
-      width: 100%;
-      overflow-x: hidden;
+      background-color: white;
       font-family: 'Helvetica Neue', sans-serif;
-      scroll-behavior: smooth;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
+      text-align: center;
+      overflow-x: hidden; /* niente scroll laterale */
+      color: #222;
     }
 
     .hero {
@@ -23,136 +22,132 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      height: 90vh;
+      gap: 20px;
       padding: 20px;
-      background-color: white;
-      position: relative;
     }
 
     .hero-logo {
-      max-width: 90vw;
-      max-height: 65vh;
+      max-width: 80vw;
+      max-height: 60vh;
       height: auto;
+      user-select: none;
     }
 
     .subtitle {
-      font-size: 1.5rem;
-      color: #333;
-      margin: 20px 0;
+      font-size: 1.6rem;
+      color: #444;
+      margin: 0;
+      font-weight: 400;
     }
 
     .btn {
-      padding: 15px 30px;
-      font-size: 1.2rem;
+      padding: 15px 40px;
+      font-size: 1.3rem;
       color: white;
-      background-color: #333;
+      background-color: #222;
       border: none;
-      border-radius: 8px;
+      border-radius: 25px;
       text-decoration: none;
-      transition: background-color 0.3s;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      display: inline-block;
+      margin-top: 10px;
     }
 
     .btn:hover {
       background-color: #555;
     }
 
-    .scopri-section {
-      padding: 60px 20px;
-      background: #f9f9f9;
-      text-align: center;
+    /* Sezione riquadri */
+    #scopri {
+      max-width: 1000px;
+      margin: 40px auto 80px auto;
+      padding: 0 20px;
     }
 
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 40px;
+    #scopri h2 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      font-weight: 700;
       color: #111;
     }
 
-    .card-grid {
+    .key-points {
       display: flex;
       flex-wrap: wrap;
-      gap: 30px;
       justify-content: center;
-      max-width: 1200px;
-      margin: auto;
+      gap: 30px;
     }
 
-    .card {
-      background: white;
-      padding: 20px;
-      width: 260px;
+    .point {
+      background: #f5f5f5;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #222;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: #555;
-    }
-
-    .top-link {
-      display: inline-block;
-      margin-top: 50px;
-      font-size: 1rem;
+      padding: 40px 30px;
+      width: 180px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
       text-decoration: none;
-      color: #333;
-      border: 1px solid #333;
-      padding: 10px 20px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .top-link:hover {
-      background-color: #333;
-      color: white;
+    .point:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+      color: #000;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .key-points {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .point {
+        width: 80vw;
+        padding: 30px 20px;
+        font-size: 1.3rem;
+      }
+
+      .hero-logo {
+        max-width: 90vw;
+        max-height: 40vh;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="hero" id="top">
+
+  <section class="hero">
     <img src="logo.png" alt="Logo Altrove" class="hero-logo" />
     <h2 class="subtitle">Cosy Lodge nel cuore di Leukerbad</h2>
     <a href="#scopri" class="btn">Scopri di più</a>
-    
-  </div>
+  </section>
 
-  <div class="scopri-section" id="scopri">
-    <h2 class="section-title">Scopri Altrove</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Appartamento</h3>
-        <p>2.5 locali (61 m²), un bagno con doccia, grande soggiorno con cucina open space, terrazza panoramica, locale sci.</p>
-      </div>
-      <div class="card">
-        <h3>Sport</h3>
-        <p>A pochi passi da Sportarena: tennis, pattinaggio, pumptrack, palestra, sport indoor e outdoor per tutta la famiglia.</p>
-      </div>
-      <div class="card">
-        <h3>Vicino a</h3>
-        <p>A pochi passi dalle Terme di Leukerbad e dal centro, con negozi, ristoranti e passeggiate in montagna.</p>
-      </div>
-      <div class="card">
-        <h3>Guest Card</h3>
-        <p>Con la Leukerbad Guest Card accedi a sconti esclusivi su terme, trasporti, Sportarena e molte attività locali.</p>
-      </div>
-      <div class="card">
-        <h3>Prenotazioni</h3>
-        <p>Affitti brevi (3 giorni - 2 settimane). Contattaci per disponibilità e richieste particolari.</p>
-      </div>
+  <section id="scopri">
+    <h2>Scopri di più</h2>
+    <div class="key-points">
+      <a href="appartamento.html" class="point">Appartamento</a>
+      <a href="vicino-a.html" class="point">Vicino a</a>
+      <a href="sport.html" class="point">Sport</a>
+      <a href="guest-card.html" class="point">Guest Card</a>
+      <a href="prenotazioni.html" class="point">Prenotazioni</a>
+      <a href="contatti.html" class="point">Contatti</a>
     </div>
+  </section>
 
-    <a href="#top" class="top-link">Torna alla home</a>
-  </div>
 </body>
 </html>
