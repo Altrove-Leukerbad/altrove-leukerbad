@@ -2,27 +2,170 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Appartamento</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appartamento - ALTROVE Leukerbad</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: #fff;
+      color: #222;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background-color: #f5f5f5;
+      font-size: 1.8rem;
+      font-weight: 700;
+      border-bottom: 1px solid #ddd;
+    }
+    .container {
+      display: flex;
+      max-width: 1000px;
+      margin: 30px auto;
+      gap: 40px;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    /* Left side: carousel */
+    .carousel {
+      flex: 1;
+      position: relative;
+      max-width: 480px;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    }
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      border-radius: 10px;
+      user-select: none;
+    }
+    .carousel img.active {
+      display: block;
+    }
+    /* Buttons for carousel */
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.3);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: 0 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      user-select: none;
+    }
+    .carousel button:hover {
+      background-color: rgba(0,0,0,0.6);
+    }
+    .prev {
+      left: 10px;
+    }
+    .next {
+      right: 10px;
+    }
+    /* Right side: text */
+    .description {
+      flex: 1;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .description h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+    }
+    footer a.btn {
+      background-color: #222;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    footer a.btn:hover {
+      background-color: #555;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .carousel, .description {
+        max-width: 100%;
+      }
+      .carousel {
+        aspect-ratio: auto;
+        height: 300px;
+      }
+    }
+  </style>
 </head>
-<body class="pagina-interna">
+<body>
+  <header>Appartamento</header>
+  <main class="container">
+    <div class="carousel">
+      <button class="prev" aria-label="Foto precedente">&#10094;</button>
+      <button class="next" aria-label="Foto successiva">&#10095;</button>
 
-  <main class="contenuto-interno">
-    <h1>Appartamento</h1>
-    <h2>Benvenuti nel vostro rifugio ideale a Leukerbad!</h2>
+      <img src="foto1.jpg" alt="Soggiorno luminoso" class="active" />
+      <img src="foto2.jpg" alt="Cucina open space attrezzata" />
+      <img src="foto3.jpg" alt="Camera da letto con vista Gemmi" />
+      <img src="foto4.jpg" alt="Bagno con doccia moderna" />
+      <img src="foto5.jpg" alt="Ampio terrazzo panoramico" />
+    </div>
+
+    <div class="description">
+      <h2>Benvenuti nel vostro rifugio ideale a Leukerbad!</h2>
       <p>Questo spazioso appartamento di 2.5 locali, 61 m², combina comfort e stile moderno per regalarvi un soggiorno indimenticabile nel cuore delle montagne.</p>
       <p>La grande cucina open space è un vero paradiso per gli amanti della convivialità, attrezzata con tutte le comodità: padellino raclette, fondue al formaggio, chinoise, bollitore, microonde, lavastoviglie e macchina del caffè per iniziare al meglio ogni giornata.</p>
       <p>La luminosa sala, con ampie vetrate e un design moderno, si apre su un ampio terrazzo, perfetto per godersi la vista panoramica della vallata e rilassarsi all’aria aperta.</p>
-      <p>La camera da letto, con cinque posti letto, include un vestibolo e offre comfort e tranquillità.</p>
+      <p>La camera da letto, con cinque posti letto e vestibolo, offre comfort e tranquillità.</p>
       <p>Il bagno dispone di una doccia funzionale.</p>
       <p>L’appartamento è dotato di armadio sci dedicato, connessione WiFi ad alta velocità e accesso a Netflix per i momenti di relax.</p>
       <p>Per la vostra comodità, è disponibile un ascensore, la possibilità di carico e scarico direttamente presso l’appartamento e un posteggio presso lo Sportarena.</p>
       <p>Un soggiorno perfetto dove la montagna incontra la comodità di casa.</p>
-    </section>
+    </div>
   </main>
- <footer>
+
+  <footer>
     <a href="index.html" class="btn">Torna alla Home</a>
   </footer>
+
+  <script>
+    const images = document.querySelectorAll('.carousel img');
+    const prevBtn = document.querySelector('.carousel .prev');
+    const nextBtn = document.querySelector('.carousel .next');
+    let current = 0;
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      current = (current + 1) % images.length;
+      showImage(current);
+    });
+  </script>
 </body>
 </html>
