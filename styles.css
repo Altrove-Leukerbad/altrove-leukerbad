@@ -1,44 +1,44 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff;
-  color: #222;
+  padding: 0;
+  background-color: white;
+  font-family: 'Helvetica Neue', sans-serif;
+  text-align: center;
 }
 
 .hero {
-  text-align: center;
-  padding: 100px 20px 60px;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+  padding: 20px;
 }
 
-.logo-large {
-  height: 160px;
-  max-width: 90%;
-  margin-bottom: 20px;
+.hero-logo {
+  max-width: 80vw;
+  max-height: 60vh;
+  height: auto;
 }
 
 .subtitle {
-  font-size: 1.4rem;
-  color: #444;
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
 }
 
 .btn {
-  padding: 12px 24px;
-  font-size: 1rem;
-  background-color: #222;
+  padding: 15px 30px;
+  font-size: 1.2rem;
   color: white;
+  background-color: #333;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
-  background-color: #444;
-}
-
-.details-section {
-  padding: 60px 20px;
-  text-align: center;
+  background-color: #555;
 }
