@@ -6,6 +6,37 @@
     <title>ALTROVE Leukerbad</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
+  <script>
+  const btn = document.querySelector('.btn');
+
+  btn.addEventListener('click', function () {
+    this.style.display = 'none';
+    window.scrollTo({
+      top: document.querySelector('#scopri').offsetTop,
+      behavior: 'smooth'
+    });
+
+    // Blocca lo scroll verso l’alto
+    const handleScroll = () => {
+      if (window.scrollY < document.querySelector('#scopri').offsetTop - 50) {
+        window.scrollTo({ top: document.querySelector('#scopri').offsetTop, behavior: 'instant' });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Salva lo handler per poterlo rimuovere
+    window._altroveScrollBlock = handleScroll;
+  });
+
+  // Bottone "Torna su"
+  document.getElementById('torna-su').addEventListener('click', function () {
+    // Riabilita lo scroll
+    window.removeEventListener('scroll', window._altroveScrollBlock);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
  <body>
   <div class="hero">
     <img src="logo.png" alt="Logo Altrove" class="hero-logo" />
