@@ -1,132 +1,169 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Appartamento</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #222;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-      display: flex;
-      gap: 30px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-    .slider {
-      flex: 1 1 480px;
-      max-width: 480px;
-      position: relative;
-    }
-    .slider img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      user-select: none;
-    }
-    .slider-controls {
-      margin-top: 8px;
-      text-align: center;
-    }
-    .slider-btn {
-      cursor: pointer;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      margin: 0 8px;
-      border-radius: 5px;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    .slider-btn:hover {
-      background-color: #555;
-    }
-    .description {
-      flex: 1 1 580px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      text-align: justify;
-      color: #222;
-    }
-    h1 {
-      margin-top: 0;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #000;
-    }
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        max-width: 90%;
-        padding: 0 10px;
-      }
-      .slider, .description {
-        max-width: 100%;
-        flex: 1 1 100%;
-      }
-      .description {
-        margin-top: 30px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="slider">
-      <img id="slide-img" src="appartamento1.jpg" alt="Foto appartamento Altrove Leukerbad" />
-      <div class="slider-controls">
-        <button class="slider-btn" onclick="prevSlide()">‹ Prev</button>
-        <button class="slider-btn" onclick="nextSlide()">Next ›</button>
-      </div>
-    </div>
-    <div class="description">
-      <h1>Appartamento ALTROVE Leukerbad</h1>
-      <p>Benvenuti nel vostro rifugio ideale a Leukerbad! Questo spazioso appartamento di 2.5 locali, 61 m², combina comfort e stile moderno per regalarvi un soggiorno indimenticabile nel cuore delle montagne.</p>
-      <p>La grande cucina open space è un vero paradiso per gli amanti della convivialità, attrezzata con tutte le comodità: padellino raclette, fondue al formaggio, chinoise, bollitore, microonde, lavastoviglie e macchina del caffè per iniziare al meglio ogni giornata.</p>
-      <p>La luminosa sala, con ampie vetrate e un design moderno, si apre su un ampio terrazzo, perfetto per godersi la vista panoramica della vallata e rilassarsi all’aria aperta.</p>
-      <p>La camera da letto, con cinque posti letto, include un vestibolo e offre comfort e tranquillità. Perfetta per godersi la vista panoramica a valle, sul Gemmi e rilassarsi all'aria aperta.</p>
-      <p>Il bagno dispone di una doccia funzionale.</p>
-      <p>L’appartamento è dotato di armadio sci dedicato, connessione WiFi ad alta velocità e accesso a Netflix per i momenti di relax.</p>
-      <p>Per la vostra comodità, è disponibile un ascensore, la possibilità di carico e scarico direttamente presso l’appartamento e un posteggio presso lo Sportarena.</p>
-      <p>Un soggiorno perfetto dove la montagna incontra la comodità di casa.</p>
-    </div>
-  </div>
+/* Reset base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  <script>
-    const images = [
-      "appartamento1.jpg",
-      "appartamento2.jpg",
-      "appartamento3.jpg",
-      "appartamento4.jpg"
-    ];
+body {
+  background-color: white;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #222;
+  line-height: 1.6;
+  text-align: center;
+  overflow-x: hidden; /* evita scroll laterale */
+}
 
-    let currentIndex = 0;
-    const slideImg = document.getElementById("slide-img");
+/* Hero section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+  padding: 20px;
+}
 
-    function showSlide(index) {
-      if (index < 0) index = images.length - 1;
-      if (index >= images.length) index = 0;
-      currentIndex = index;
-      slideImg.src = images[currentIndex];
-    }
+.hero-logo {
+  max-width: 80vw;
+  max-height: 60vh;
+  height: auto;
+}
 
-    function prevSlide() {
-      showSlide(currentIndex - 1);
-    }
+.subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+}
 
-    function nextSlide() {
-      showSlide(currentIndex + 1);
-    }
-  </script>
-</body>
-</html>
+.btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+/* Sezioni con riquadri */
+.sections {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.section-card {
+  background: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  width: 220px;
+  padding: 30px 15px;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  user-select: none;
+  text-align: center;
+}
+
+.section-card:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  background-color: #eaeaea;
+}
+
+/* Pagina Appartamento: container e layout */
+.container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.carousel {
+  flex: 1;
+  max-width: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.carousel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.carousel-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background-color: #555;
+}
+
+.description {
+  flex: 1.2;
+  font-size: 1.1rem;
+  color: #222;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .carousel, .description {
+    max-width: 100%;
+  }
+  .description {
+    margin-top: 20px;
+  }
+  .section-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 500px) {
+  .section-card {
+    width: 100%;
+  }
+}
