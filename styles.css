@@ -84,3 +84,8 @@ main {
   line-height: 1.5;
   color: #333;
 }
+
+.logo-large {
+  height: 150px; /* Puoi regolare l'altezza a piacere */
+  margin-bottom: 1rem;
+}
