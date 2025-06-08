@@ -3,16 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ALTROVE Leukerbad</title>
+  <title>Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <img src="logo.jpg" alt="Logo ALTROVE Leukerbad" />
-  </header>
   <main>
-    <section class="hero-text">
-      <!-- Logo grande come titolo -->
-      <img src="logo.png" alt="Logo ALTROVE Leukerbad" class="logo-large" />
-      <p>Cosy Lodge nel cuore di Leukerbad</p>
-      <button cl
+    <section class="hero">
+      <img src="logo.png" alt="Logo Altrove Leukerbad" class="logo-large" />
+      <p class="subtitle">Cosy Lodge nel cuore di Leukerbad</p>
+      <button class="btn" id="scrollBtn">Scopri di più</button>
+    </section>
+
+    <section id="details" class="details-section">
+      <h2>Dettagli dell'Appartamento</h2>
+      <p>Qui potrai inserire foto, calendario e descrizione dell'alloggio.</p>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('scrollBtn').addEventListener('click', function () {
+      document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
