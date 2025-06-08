@@ -104,3 +104,59 @@ body {
   color: #333;
   text-decoration: underline;
 }
+/* Scroll smooth globale */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fade-in per hero */
+.hero-logo, .subtitle, .btn {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-logo {
+  animation-delay: 0.3s;
+}
+
+.subtitle {
+  animation-delay: 0.8s;
+}
+
+.btn {
+  animation-delay: 1.3s;
+}
+
+/* Animazione fadeInUp */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bottone con transizione e hover */
+.btn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Riquadri effetto ombra animata */
+.point {
+  transition: box-shadow 0.4s ease;
+}
+
+.point:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
