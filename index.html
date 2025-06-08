@@ -1,83 +1,157 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALTROVE Leukerbad</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <script>
-  const btn = document.querySelector('.btn');
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALTROVE Leukerbad</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'Helvetica Neue', sans-serif;
+      scroll-behavior: smooth;
+    }
 
-  btn.addEventListener('click', function () {
-    this.style.display = 'none';
-    window.scrollTo({
-      top: document.querySelector('#scopri').offsetTop,
-      behavior: 'smooth'
-    });
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
 
-    // Blocca lo scroll verso l’alto
-    const handleScroll = () => {
-      if (window.scrollY < document.querySelector('#scopri').offsetTop - 50) {
-        window.scrollTo({ top: document.querySelector('#scopri').offsetTop, behavior: 'instant' });
-      }
-    };
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      background-color: white;
+      position: relative;
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    .hero-logo {
+      max-width: 90vw;
+      max-height: 65vh;
+      height: auto;
+    }
 
-    // Salva lo handler per poterlo rimuovere
-    window._altroveScrollBlock = handleScroll;
-  });
+    .subtitle {
+      font-size: 1.5rem;
+      color: #333;
+      margin: 20px 0;
+    }
 
-  // Bottone "Torna su"
-  document.getElementById('torna-su').addEventListener('click', function () {
-    // Riabilita lo scroll
-    window.removeEventListener('scroll', window._altroveScrollBlock);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: white;
+      background-color: #333;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
 
- <body>
-  <div class="hero">
+    .btn:hover {
+      background-color: #555;
+    }
+
+    .scopri-section {
+      padding: 60px 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #111;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      width: 260px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .top-link {
+      display: inline-block;
+      margin-top: 50px;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #333;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .top-link:hover {
+      background-color: #333;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" id="top">
     <img src="logo.png" alt="Logo Altrove" class="hero-logo" />
     <h2 class="subtitle">Cosy Lodge nel cuore di Leukerbad</h2>
-   <a href="#scopri" class="btn" onclick="this.style.display='none'">Scopri di più</a>
-
+    <a href="#scopri" class="btn" onclick="this.style.display='none'">Scopri di più</a>
   </div>
 
-  <section id="scopri" class="scopri-section">
-    <h2>Benvenuti ad Altrove</h2>
-    <p class="intro">Un’accogliente casa vacanza nel cuore di Leukerbad, perfetta per vivere tutte le avventure e il relax in montagna.</p>
-
-<div id="scopri" class="scopri-section">
-  <h2>Scopri Altrove</h2>
-  <p class="intro">Lasciati ispirare da ciò che rende unico il nostro lodge.</p>
-
-  <div class="key-points">
-    <div class="point" id="appartamento">
-      <h3>Appartamento</h3>
-      <p>2.5 locali (61 m²), bagno con doccia, ampia sala con cucina open space, terrazza con vista e armadio sci.</p>
+  <div class="scopri-section" id="scopri">
+    <h2 class="section-title">Scopri Altrove</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Appartamento</h3>
+        <p>2.5 locali (61 m²), un bagno con doccia, grande soggiorno con cucina open space, terrazza panoramica, locale sci.</p>
+      </div>
+      <div class="card">
+        <h3>Sport</h3>
+        <p>A pochi passi da Sportarena: tennis, pattinaggio, pumptrack, palestra, sport indoor e outdoor per tutta la famiglia.</p>
+      </div>
+      <div class="card">
+        <h3>Vicino a</h3>
+        <p>A pochi passi dalle Terme di Leukerbad e dal centro, con negozi, ristoranti e passeggiate in montagna.</p>
+      </div>
+      <div class="card">
+        <h3>Guest Card</h3>
+        <p>Con la Leukerbad Guest Card accedi a sconti esclusivi su terme, trasporti, Sportarena e molte attività locali.</p>
+      </div>
+      <div class="card">
+        <h3>Prenotazioni</h3>
+        <p>Affitti brevi (3 giorni - 2 settimane). Contattaci per disponibilità e richieste particolari.</p>
+      </div>
     </div>
 
-    <div class="point" id="sport">
-      <h3>Sport</h3>
-      <p>A pochi passi dalla Sportarena: pattinaggio, tennis, fitness e molto altro nel cuore delle Alpi.</p>
-    </div>
-
-    <div class="point" id="vicino">
-      <h3>Vicino a</h3>
-      <p>A due passi dal centro e dalle Leukerbad Therme: relax, shopping e ristoranti tipici a portata di mano.</p>
-    </div>
-
-    <div class="point" id="guestcard">
-      <h3>Guest Card</h3>
-      <p>Con la Leukerbad Guest Card accedi a sconti, trasporti gratuiti e tante attività locali incluse.</p>
-    </div>
-
-    <div class="point" id="prenotazioni">
-      <h3>Prenotazioni</h3>
-      <p>Affitti brevi da 3 giorni a 2 settimane. Contattaci per disponibilità e offerte speciali!</p>
-    </div>
-    <button id="torna-su" class="btn">Torna su</button>
+    <a href="#top" class="top-link">Torna alla home</a>
   </div>
-</div>
+</body>
+</html>
