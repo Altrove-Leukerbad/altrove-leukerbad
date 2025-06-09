@@ -531,3 +531,28 @@ form textarea {
 .footer-link:hover {
   background-color: #666;
 }
+.info-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  max-width: 1000px;
+}
+
+.info-links a {
+  display: block;
+}
+
+.info-img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.info-img:hover {
+  transform: scale(1.05);
+}
