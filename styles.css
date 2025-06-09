@@ -506,9 +506,15 @@ form textarea {
 }
 
 .contact-footer img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: inline-block;
+  border-radius: 8px; /* opzionale: arrotonda un po’ */
+  background-color: white; /* opzionale: fondo uniforme */
+  padding: 4px;
+  box-sizing: border-box;
   transition: transform 0.3s ease;
 }
 
