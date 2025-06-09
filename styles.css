@@ -473,7 +473,6 @@ form textarea {
 .contact-footer img {
   width: 32px;
   height: 32px;
-  filter: invert(100%); /* Rende bianca qualsiasi icona nera */
   transition: transform 0.3s ease;
 }
 
