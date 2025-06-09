@@ -493,3 +493,39 @@ form textarea {
 .footer-link:hover {
   background-color: #666;
 }
+.contact-footer {
+  margin-top: 60px;
+  padding: 20px;
+  text-align: center;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.contact-footer img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.contact-footer img:hover {
+  transform: scale(1.2);
+}
+
+.footer-link {
+  font-size: 1.1rem;
+  text-decoration: none;
+  background: #444;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.footer-link:hover {
+  background-color: #666;
+}
