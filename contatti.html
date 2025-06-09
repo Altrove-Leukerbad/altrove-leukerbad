@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Contatti – Altrove Leukerbad</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
+  <!-- Libreria per selezione internazionale telefono con bandiere -->
+  <link rel="stylesheet" href="https://cdn.tutorialjinni.com/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+  <script src="https://cdn.tutorialjinni.com/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 </head>
 <body>
   <section class="contact-section">
@@ -18,51 +21,37 @@
         </p>
         <div class="map-container">
           <iframe
-            src="https://www.google.com/maps?q=Zur%20Gasse%2091,%203954%20Leukerbad&output=embed"
-            width="100%"
-            height="250"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-          ></iframe>
+            src="https://www.google.com/maps/embed/v1/place?key=TUO_API_KEY&zoom=17&center=46.3823,7.6254&q=Zur+Gasse+Leukerbad"
+            width="100%" height="250" frameborder="0" style="border:0" allowfullscreen loading="lazy">
+          </iframe>
         </div>
       </div>
 
       <div class="contact-right">
         <form action="https://formspree.io/f/xpwrprzr" method="POST">
-          <label for="name">Nome*</label>
-          <input type="text" id="name" name="Nome" required />
+          <label>Nome*</label>
+          <input type="text" name="Nome" required>
 
-          <label for="email">E-mail*</label>
-          <input type="email" id="email" name="Email" required />
+          <label>E-mail*</label>
+          <input type="email" name="Email" required>
 
-          <label for="phone">Telefono</label>
-          <div class="phone-group">
-            <select name="prefix" required>
-              <option value="+41">+41 🇨🇭</option>
-              <option value="+39">+39 🇮🇹</option>
-              <option value="+33">+33 🇫🇷</option>
-              <option value="+49">+49 🇩🇪</option>
-              <option value="+44">+44 🇬🇧</option>
-              <!-- aggiungine altri se vuoi -->
-            </select>
-            <input type="tel" name="Telefono" />
-          </div>
+          <label>Telefono</label>
+          <input id="phone" type="tel" name="Telefono">
 
-          <label for="guests">Numero di ospiti (compresi bambini)*</label>
-          <input type="number" name="Ospiti" required min="1"/>
+          <label>Numero di ospiti (compresi bambini)*</label>
+          <input type="number" name="Ospiti" required min="1">
 
-          <label for="checkin">Check-in*</label>
-          <input type="date" name="Check-in" required />
+          <label>Check-in*</label>
+          <input type="date" name="Check-in" required>
 
-          <label for="checkout">Check-out*</label>
-          <input type="date" name="Check-out" required />
+          <label>Check-out*</label>
+          <input type="date" name="Check-out" required>
 
-          <label for="message">Messaggio*</label>
-          <textarea id="message" name="Messaggio" required></textarea>
+          <label>Messaggio*</label>
+          <textarea name="Messaggio" rows="4" required></textarea>
 
           <label class="consent">
-            <input type="checkbox" name="Consenso" required />
+            <input type="checkbox" name="Consenso" required>
             Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove.
           </label>
 
@@ -73,14 +62,23 @@
   </section>
 
   <footer class="contact-footer">
-    <a href="https://instagram.com" target="_blank">📸</a>
-    <a href="mailto:altrove.leukerbad@gmail.com">✉️</a>
-    <a href="https://wa.me/41765872011" target="_blank">💬</a>
+    <a href="https://instagram.com" target="_blank">📸 Instagram</a>
+    <a href="mailto:altrove.leukerbad@gmail.com">✉️ Email</a>
+    <a href="https://wa.me/41765872011" target="_blank">💬 WhatsApp</a>
     <a href="prenotazioni.html" class="footer-link">PRENOTA</a>
   </footer>
 
   <div class="back-home">
     <a href="index.html" class="btn">Torna alla Home Page</a>
   </div>
+
+  <script>
+    const phoneInput = document.querySelector("#phone");
+    intlTelInput(phoneInput, {
+      separateDialCode: true,
+      initialCountry: "ch",
+      utilsScript: "https://cdn.tutorialjinni.com/intl-tel-input/17.0.19/js/utils.js"
+    });
+  </script>
 </body>
 </html>
