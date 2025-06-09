@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contatti | Altrove Leukerbad</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="contatti-container">
+    <div class="contatti-info">
+      <h2>Contatti</h2>
+      <p><strong>Indirizzo:</strong><br>Zur Gasse 91<br>3954 Leukerbad</p>
+      <p><strong>Per info e booking:</strong></p>
+      <p><a href="mailto:altrove.leukerbad@gmail.com">altrove.leukerbad@gmail.com</a></p>
+      <p><a href="tel:+41765872011">+41 76 587 20 11 (Tel / WhatsApp)</a></p>
+    </div>
+
+    <div class="contatti-form">
+      <form action="https://formspree.io/f/your-form-id" method="POST">
+        <label>Nome*<input type="text" name="nome" required></label>
+        <label>Email*<input type="email" name="email" required></label>
+        <label>Telefono<input type="tel" name="telefono"></label>
+        <label>Numero di ospiti (compresi bambini)*<input type="number" name="ospiti" required></label>
+        <label>Check-in*<input type="date" name="checkin" required></label>
+        <label>Check-out*<input type="date" name="checkout" required></label>
+        <label>Messaggio*<textarea name="messaggio" rows="5" required></textarea></label>
+        <label class="privacy">
+          <input type="checkbox" name="privacy" required>
+          Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove
+        </label>
+        <button type="submit">Invia</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer-links">
+    <a href="https://www.instagram.com" target="_blank"><img src="instagram.svg" alt="Instagram" /></a>
+    <a href="mailto:altrove.leukerbad@gmail.com"><img src="mail.svg" alt="Email" /></a>
+    <a href="https://wa.me/41765872011" target="_blank"><img src="whatsapp.svg" alt="WhatsApp" /></a>
+    <a href="prenotazioni.html" class="prenota-link">PRENOTA</a>
+  </footer>
+</body>
+</html>
