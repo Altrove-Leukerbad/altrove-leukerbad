@@ -436,3 +436,25 @@ form textarea {
     padding: 20px;
   }
 }
+.contact-footer {
+  margin-top: 60px;
+  padding: 20px;
+  text-align: center;
+  background: #222;
+}
+
+.contact-footer a {
+  color: white;
+  margin: 0 15px;
+  font-size: 1.8rem;
+  text-decoration: none;
+}
+
+.footer-link {
+  font-size: 1.1rem;
+  text-decoration: none;
+  background: #444;
+  padding: 6px 14px;
+  border-radius: 6px;
+  margin-left: 20px;
+}
