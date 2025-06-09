@@ -3,42 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contatti | Altrove Leukerbad</title>
+  <title>Contatti – Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="contatti-container">
-    <div class="contatti-info">
-      <h2>Contatti</h2>
-      <p><strong>Indirizzo:</strong><br>Zur Gasse 91<br>3954 Leukerbad</p>
-      <p><strong>Per info e booking:</strong></p>
-      <p><a href="mailto:altrove.leukerbad@gmail.com">altrove.leukerbad@gmail.com</a></p>
-      <p><a href="tel:+41765872011">+41 76 587 20 11 (Tel / WhatsApp)</a></p>
-    </div>
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-left">
+        <h2>Contatti</h2>
+        <p><strong>Indirizzo:</strong><br>Zur Gasse 91<br>3954 Leukerbad</p>
+        <p><strong>Per info e booking:</strong><br>
+          <a href="mailto:altrove.leukerbad@gmail.com">altrove.leukerbad@gmail.com</a><br>
+          <a href="https://wa.me/41765872011" target="_blank">+41 76 587 20 11</a>
+        </p>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps?q=Zur%20Gasse%2091,%203954%20Leukerbad&output=embed"
+            width="100%"
+            height="250"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
 
-    <div class="contatti-form">
-      <form action="https://formspree.io/f/your-form-id" method="POST">
-        <label>Nome*<input type="text" name="nome" required></label>
-        <label>Email*<input type="email" name="email" required></label>
-        <label>Telefono<input type="tel" name="telefono"></label>
-        <label>Numero di ospiti (compresi bambini)*<input type="number" name="ospiti" required></label>
-        <label>Check-in*<input type="date" name="checkin" required></label>
-        <label>Check-out*<input type="date" name="checkout" required></label>
-        <label>Messaggio*<textarea name="messaggio" rows="5" required></textarea></label>
-        <label class="privacy">
-          <input type="checkbox" name="privacy" required>
-          Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove
-        </label>
-        <button type="submit">Invia</button>
-      </form>
-    </div>
-  </div>
+      <div class="contact-right">
+        <form action="https://formspree.io/f/xpwrprzr" method="POST">
+          <label for="name">Nome*</label>
+          <input type="text" id="name" name="Nome" required />
 
-  <footer class="footer-links">
-    <a href="https://www.instagram.com" target="_blank"><img src="instagram.svg" alt="Instagram" /></a>
-    <a href="mailto:altrove.leukerbad@gmail.com"><img src="mail.svg" alt="Email" /></a>
-    <a href="https://wa.me/41765872011" target="_blank"><img src="whatsapp.svg" alt="WhatsApp" /></a>
-    <a href="prenotazioni.html" class="prenota-link">PRENOTA</a>
+          <label for="email">E-mail*</label>
+          <input type="email" id="email" name="Email" required />
+
+          <label for="phone">Telefono</label>
+          <div class="phone-group">
+            <select name="prefix" required>
+              <option value="+41">+41 🇨🇭</option>
+              <option value="+39">+39 🇮🇹</option>
+              <option value="+33">+33 🇫🇷</option>
+              <option value="+49">+49 🇩🇪</option>
+              <option value="+44">+44 🇬🇧</option>
+              <!-- aggiungine altri se vuoi -->
+            </select>
+            <input type="tel" name="Telefono" />
+          </div>
+
+          <label for="guests">Numero di ospiti (compresi bambini)*</label>
+          <input type="number" name="Ospiti" required min="1"/>
+
+          <label for="checkin">Check-in*</label>
+          <input type="date" name="Check-in" required />
+
+          <label for="checkout">Check-out*</label>
+          <input type="date" name="Check-out" required />
+
+          <label for="message">Messaggio*</label>
+          <textarea id="message" name="Messaggio" required></textarea>
+
+          <label class="consent">
+            <input type="checkbox" name="Consenso" required />
+            Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove.
+          </label>
+
+          <button type="submit" class="btn">Invia</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact-footer">
+    <a href="https://instagram.com" target="_blank">📸</a>
+    <a href="mailto:altrove.leukerbad@gmail.com">✉️</a>
+    <a href="https://wa.me/41765872011" target="_blank">💬</a>
+    <a href="prenotazioni.html" class="footer-link">PRENOTA</a>
   </footer>
+
+  <div class="back-home">
+    <a href="index.html" class="btn">Torna alla Home Page</a>
+  </div>
 </body>
 </html>
