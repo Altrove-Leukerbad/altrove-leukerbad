@@ -115,6 +115,32 @@
         height: 300px;
       }
     }
+    .info-box-scrollable {
+  width: 300px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}
+
+.info-box-scrollable h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: #eee;
+  border-radius: 12px 12px 0 0;
+}
+
+.scrollable-content {
+  overflow-y: auto;
+  padding: 20px;
+  flex-grow: 1;
+}
   </style>
 </head>
 <body>
