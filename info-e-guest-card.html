@@ -13,25 +13,18 @@
       position: relative;
       margin-bottom: 40px;
     }
-
-    .carousel-track {
-      display: flex;
-      width: 2400px; /* 8 immagini da 300px */
-      animation: scroll 40s linear infinite;
-    }
-
-    .carousel-track img {
-      width: 300px;
-      height: 300px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
+ 
+ .carousel-track img {
+  min-width: 100%;
+  height: 300px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 
     @keyframes scroll {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-1200px); } /* 4 immagini */
+      100% { transform: translateX(-100%); }
     }
-
     .info-links {
       display: flex;
       justify-content: center;
@@ -39,18 +32,33 @@
       padding: 20px;
       flex-wrap: wrap;
     }
-
+    .info-box {
+      width: 300px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s;
+    }
+    .info-box:hover {
+      transform: scale(1.05);
+    }
+    .info-box a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
     .section {
       margin: 50px auto;
       max-width: 900px;
       padding: 0 20px;
     }
-
     .section h2 {
       font-size: 1.8rem;
       margin-bottom: 10px;
     }
-
     .section img {
       width: 100%;
       max-height: 300px;
@@ -59,13 +67,11 @@
       margin: 10px 0;
       cursor: pointer;
     }
-
     .btn-home {
       display: block;
       text-align: center;
       margin: 60px auto 40px;
     }
-
     .btn-home a {
       background-color: #333;
       color: #fff;
@@ -74,47 +80,31 @@
       border-radius: 8px;
       font-size: 1.1rem;
     }
-
-    .info-links img {
-      width: 300px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      transition: transform 0.3s;
-    }
-
-    .info-links img:hover {
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body>
 
-  <section class="carousel-container">
-    <div class="carousel-track">
-      <img src="img/leukerbad1.jpg" alt="Leukerbad panorama 1">
-      <img src="img/leukerbad2.jpg" alt="Leukerbad panorama 2">
-      <img src="img/leukerbad3.jpg" alt="Leukerbad panorama 3">
-      <img src="img/leukerbad4.jpg" alt="Leukerbad panorama 4">
-      <!-- Duplicati per scorrimento continuo -->
-      <img src="img/leukerbad1.jpg" alt="">
-      <img src="img/leukerbad2.jpg" alt="">
-      <img src="img/leukerbad3.jpg" alt="">
-      <img src="img/leukerbad4.jpg" alt="">
-    </div>
-  </section>
+<section class="carousel-container">
+  <div class="carousel-track">
+    <img src="img/leukerbad1.jpg" alt="Leukerbad panorama 1">
+    <img src="img/leukerbad2.jpg" alt="Leukerbad panorama 2">
+    <img src="img/leukerbad3.jpg" alt="Leukerbad panorama 3">
+    <img src="img/leukerbad4.jpg" alt="Leukerbad panorama 4">
+  </div>
+</section>
 
-  <section class="info-links">
-    <a href="https://leukerbad.ch" target="_blank">
-      <img src="img/turismo.jpg" alt="Turismo Leukerbad" />
-    </a>
-    <a href="https://leukerbad.ch/guestcard/" target="_blank">
-      <img src="img/guestcard.jpg" alt="Guest Card Leukerbad" />
-    </a>
-    <a href="https://www.skischule-leukerbad.ch/" target="_blank">
-      <img src="img/scuola-sci.jpg" alt="Scuola svizzera di sci" />
-    </a>
-  </section>
+ <section class="info-links">
+  <a href="https://leukerbad.ch" target="_blank">
+    <img src="img/turismo.jpg" alt="Turismo Leukerbad" class="info-img" />
+  </a>
+  <a href="https://leukerbad.ch/guestcard/" target="_blank">
+    <img src="img/guestcard.jpg" alt="Guest Card Leukerbad" class="info-img" />
+  </a>
+  <a href="https://www.skischule-leukerbad.ch/" target="_blank">
+    <img src="img/scuola-sci.jpg" alt="Scuola svizzera di sci" class="info-img" />
+  </a>
+</section>
+
 
   <section class="section">
     <h2>Bus Leukerbad city</h2>
