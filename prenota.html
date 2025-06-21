@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
   <style>
     .booking-section {
       max-width: 700px;
@@ -156,9 +159,9 @@
 
     function calculatePrice() {
       const picker = document.getElementById('daterange')._litepicker;
-      const start = picker.getStartDate();
-      const end = picker.getEndDate();
-      const nights = end.diff(start, 'days');
+      const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
+      const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
+      const nights = end.diff(start, 'day');
 
       if (isNaN(nights) || nights < 2) {
         document.getElementById('pricePerNight').innerText = 'CHF 0';
@@ -170,7 +173,7 @@
 
       let totalApt = 0;
       let nightPrices = [];
-      for (let d = start.clone(); d.isBefore(end); d.add(1, 'day')) {
+      for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
         const mmdd = d.format('MM-DD');
         const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
         const price = range ? range.price : 0;
@@ -200,10 +203,8 @@
         picker.on('selected', () => calculatePrice());
       },
       lockDays: [
-        // Aggiungi date occupate qui in formato 'YYYY-MM-DD'
         '2025-07-10', '2025-07-11', '2025-07-12'
-      ],
-      highlightedDays: []
+      ]
     });
   </script>
 </body>
