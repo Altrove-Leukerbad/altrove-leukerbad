@@ -11,135 +11,125 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
   <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
   <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
     .booking-section {
-      max-width: 700px;
-      margin: 0 auto;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
       padding: 2rem;
-      background-color: #f9f9f9;
       border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-    .booking-form label,
-    .counter label {
-      display: block;
-      margin-top: 1rem;
+    .booking-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
-    .booking-form input,
-    .booking-form select,
-    .booking-form textarea {
-      width: 100%;
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .form-group {
+      flex: 1 1 48%;
+      display: flex;
+      flex-direction: column;
+    }
+    input, select, textarea {
       padding: 0.5rem;
-      margin-top: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
-    .counter {
+    .counters {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       margin-top: 1rem;
     }
-    .counter button {
-      padding: 0.3rem 0.8rem;
-      font-size: 1rem;
-      border: none;
-      background-color: #ccc;
-      cursor: pointer;
-      border-radius: 4px;
+    .counters div {
+      display: flex;
+      align-items: center;
     }
-    .total-breakdown, .price-per-night, .total-price {
-      text-align: center;
+    .counters button {
+      margin: 0 0.5rem;
+    }
+    .totals {
       margin-top: 1rem;
-      font-size: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      text-align: center;
     }
     .submit-button {
       width: 100%;
+      padding: 1rem;
       margin-top: 2rem;
-      padding: 0.75rem;
-      background-color: #444;
-      color: white;
+      background: #333;
+      color: #fff;
       border: none;
       border-radius: 8px;
       font-size: 1rem;
-      cursor: pointer;
     }
-    .calendar-legend {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-    .legend-box {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 6px;
-      vertical-align: middle;
-    }
-    .available { background-color: green; }
-    .booked { background-color: red; }
   </style>
 </head>
 <body>
   <section class="booking-section">
     <h2>Prenota il tuo soggiorno</h2>
-    <form class="booking-form" action="https://formspree.io/f/xpwrprzr" method="POST">
-      <label for="fullname">Nome e Cognome:</label>
-      <input type="text" id="fullname" name="fullname" required>
-
-      <label for="daterange">Date del soggiorno:</label>
-      <input type="text" id="daterange" name="daterange" required>
-
-      <label for="guestcount">Numero totale ospiti:</label>
-      <select id="guestcount" name="guestcount">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-
-      <div class="counter">
-        <label>Adulti (16+):</label>
-        <button type="button" onclick="changeCount('adults', -1)">–</button>
-        <span id="adults">2</span>
-        <button type="button" onclick="changeCount('adults', 1)">+</button>
+    <form action="https://formspree.io/f/xpwrprzr" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullname">Nome e Cognome</label>
+          <input type="text" id="fullname" name="fullname" required />
+        </div>
+        <div class="form-group">
+          <label for="daterange">Date soggiorno</label>
+          <input type="text" id="daterange" name="daterange" required />
+        </div>
       </div>
 
-      <div class="counter">
-        <label>Ragazzi (6–16):</label>
-        <button type="button" onclick="changeCount('teens', -1)">–</button>
-        <span id="teens">0</span>
-        <button type="button" onclick="changeCount('teens', 1)">+</button>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="note">Messaggio (opzionale)</label>
+          <textarea name="note" id="note" rows="3"></textarea>
+        </div>
       </div>
 
-      <div class="counter">
-        <label>Bambini (0–6):</label>
-        <button type="button" onclick="changeCount('kids', -1)">–</button>
-        <span id="kids">0</span>
-        <button type="button" onclick="changeCount('kids', 1)">+</button>
+      <div class="counters">
+        <div>
+          Adulti (16+): <button type="button" onclick="changeCount('adults', -1)">-</button><span id="adults">2</span><button type="button" onclick="changeCount('adults', 1)">+</button>
+        </div>
+        <div>
+          Ragazzi (6–16): <button type="button" onclick="changeCount('teens', -1)">-</button><span id="teens">0</span><button type="button" onclick="changeCount('teens', 1)">+</button>
+        </div>
+        <div>
+          Bambini (0–6): <button type="button" onclick="changeCount('kids', -1)">-</button><span id="kids">0</span><button type="button" onclick="changeCount('kids', 1)">+</button>
+        </div>
       </div>
 
-      <label for="note">Messaggio (opzionale):</label>
-      <textarea name="note" id="note" rows="4"></textarea>
-
-      <div class="price-per-night">Prezzo medio per notte: <span id="pricePerNight">CHF 0</span></div>
-      <div class="total-breakdown">
-        Costo appartamento: <span id="aptCost">CHF 0</span><br />
-        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br />
-        Pulizia finale: <span id="cleaning">CHF 120</span>
+      <div class="totals">
+        Prezzo medio per notte: <span id="pricePerNight">CHF 0</span><br/>
+        Costo appartamento: <span id="aptCost">CHF 0</span><br/>
+        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br/>
+        Pulizia finale: CHF 120<br/>
+        <strong>Totale soggiorno: <span id="totalPrice">CHF 0</span></strong>
       </div>
-      <div class="total-price">Totale soggiorno: <span id="totalPrice">CHF 0</span></div>
 
       <button class="submit-button" type="submit">Prenota ora</button>
     </form>
-    <div class="calendar-legend">
-      <span class="legend-box available"></span> Disponibile
-      <span class="legend-box booked"></span> Occupato
-    </div>
   </section>
 
   <script>
     let counts = { adults: 2, teens: 0, kids: 0 };
+
+    function changeCount(type, delta) {
+      counts[type] = Math.max(0, counts[type] + delta);
+      document.getElementById(type).innerText = counts[type];
+      calculate();
+    }
+
     const priceRanges = [
       { from: '04-07', to: '05-31', price: 110 },
       { from: '06-01', to: '06-30', price: 130 },
@@ -151,16 +141,9 @@
       { from: '01-09', to: '04-06', price: 220 }
     ];
 
-    function changeCount(type, delta) {
-      counts[type] = Math.max(0, counts[type] + delta);
-      document.getElementById(type).innerText = counts[type];
-      calculatePrice();
-    }
-
-    function calculatePrice() {
+    function calculate() {
       const picker = document.getElementById('daterange')._litepicker;
-      if (!picker || !picker.getStartDate() || !picker.getEndDate()) return;
-
+      if (!picker) return;
       const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
       const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
       const nights = end.diff(start, 'day');
@@ -174,26 +157,25 @@
       }
 
       let totalApt = 0;
-      let nightPrices = [];
+      let prices = [];
       for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
         const mmdd = d.format('MM-DD');
-        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
+        const range = priceRanges.find(r => mmdd >= r.from && mmdd <= r.to);
         const price = range ? range.price : 0;
         totalApt += price;
-        nightPrices.push(price);
+        prices.push(price);
       }
-      const avgPrice = nightPrices.length ? Math.round(totalApt / nightPrices.length) : 0;
-      const tax = (counts.adults * 6 + counts.teens * 3) * nights;
+
+      const avg = Math.round(totalApt / nights);
+      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
       const cleaning = 120;
       const total = totalApt + tax + cleaning;
 
-      document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
+      document.getElementById('pricePerNight').innerText = `CHF ${avg}`;
       document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
       document.getElementById('taxCost').innerText = `CHF ${tax}`;
       document.getElementById('totalPrice').innerText = `CHF ${total}`;
     }
-
-    const bookedDays = ['2025-07-10', '2025-07-11', '2025-07-12'];
 
     new Litepicker({
       element: document.getElementById('daterange'),
@@ -201,12 +183,12 @@
       numberOfMonths: 2,
       numberOfColumns: 2,
       format: 'YYYY-MM-DD',
-      tooltipText: { one: 'notte', other: 'notti' },
-      tooltipNumber: (totalDays) => totalDays,
-      lockDays: bookedDays,
       setup: (picker) => {
-        picker.on('selected', () => calculatePrice());
-      }
+        picker.on('selected', () => calculate());
+      },
+      lockDays: [
+        '2025-07-10', '2025-07-11', '2025-07-12'
+      ] // iCal si integrerebbe qui dinamicamente
     });
   </script>
 </body>
