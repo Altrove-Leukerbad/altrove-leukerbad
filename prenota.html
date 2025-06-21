@@ -5,131 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prenotazioni – Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
   <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f5f5f5;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #fff;
     }
-    .booking-section {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #fff;
+    .container {
+      max-width: 1000px;
+      margin: auto;
       padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-    .booking-section h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .form-group {
-      flex: 1 1 48%;
+    .calendar-section, .summary-section {
       display: flex;
       flex-direction: column;
+      gap: 1rem;
     }
-    input, select, textarea {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .counters {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
-    .counters div {
-      display: flex;
-      align-items: center;
-    }
-    .counters button {
-      margin: 0 0.5rem;
-    }
-    .totals {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #fafafa;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .submit-button {
-      width: 100%;
-      padding: 1rem;
+    .summary-section {
       margin-top: 2rem;
-      background: #333;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+    .summary-section div {
+      margin-bottom: 0.5rem;
+    }
+    .booking-btn {
+      background-color: #e61e4d;
+      color: white;
+      padding: 0.75rem;
+      text-align: center;
       font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+    }
+    .people-select {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .people-select label {
+      display: flex;
+      flex-direction: column;
     }
   </style>
 </head>
 <body>
-  <section class="booking-section">
-    <h2>Prenota il tuo soggiorno</h2>
-    <form action="https://formspree.io/f/xpwrprzr" method="POST">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="fullname">Nome e Cognome</label>
-          <input type="text" id="fullname" name="fullname" required />
-        </div>
-        <div class="form-group">
-          <label for="daterange">Date soggiorno</label>
-          <input type="text" id="daterange" name="daterange" required />
-        </div>
-      </div>
+  <div class="container">
+    <h1>Prenota il tuo soggiorno</h1>
+    <div class="calendar-section">
+      <label for="daterange">Date del soggiorno:</label>
+      <input type="text" id="daterange" name="daterange" required />
+    </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="note">Messaggio (opzionale)</label>
-          <textarea name="note" id="note" rows="3"></textarea>
-        </div>
-      </div>
+    <div class="people-select">
+      <label>Adulti (16+): <input type="number" id="adults" min="0" value="2"></label>
+      <label>Ragazzi (6–16): <input type="number" id="teens" min="0" value="0"></label>
+      <label>Bambini (0–6): <input type="number" id="kids" min="0" value="0"></label>
+    </div>
 
-      <div class="counters">
-        <div>
-          Adulti (16+): <button type="button" onclick="changeCount('adults', -1)">-</button><span id="adults">2</span><button type="button" onclick="changeCount('adults', 1)">+</button>
-        </div>
-        <div>
-          Ragazzi (6–16): <button type="button" onclick="changeCount('teens', -1)">-</button><span id="teens">0</span><button type="button" onclick="changeCount('teens', 1)">+</button>
-        </div>
-        <div>
-          Bambini (0–6): <button type="button" onclick="changeCount('kids', -1)">-</button><span id="kids">0</span><button type="button" onclick="changeCount('kids', 1)">+</button>
-        </div>
-      </div>
+    <div class="summary-section">
+      <div>Prezzo medio per notte: <span id="pricePerNight">CHF 0</span></div>
+      <div>Costo appartamento: <span id="aptCost">CHF 0</span></div>
+      <div>Tassa di soggiorno: <span id="taxCost">CHF 0</span></div>
+      <div>Costi di pulizia: <span id="cleaning">CHF 120</span></div>
+      <div><strong>Totale soggiorno: <span id="totalPrice">CHF 0</span></strong></div>
+    </div>
 
-      <div class="totals">
-        Prezzo medio per notte: <span id="pricePerNight">CHF 0</span><br/>
-        Costo appartamento: <span id="aptCost">CHF 0</span><br/>
-        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br/>
-        Pulizia finale: CHF 120<br/>
-        <strong>Totale soggiorno: <span id="totalPrice">CHF 0</span></strong>
-      </div>
-
-      <button class="submit-button" type="submit">Prenota ora</button>
-    </form>
-  </section>
+    <button class="booking-btn">Prenota ora</button>
+  </div>
 
   <script>
-    let counts = { adults: 2, teens: 0, kids: 0 };
-
-    function changeCount(type, delta) {
-      counts[type] = Math.max(0, counts[type] + delta);
-      document.getElementById(type).innerText = counts[type];
-      calculate();
-    }
-
     const priceRanges = [
       { from: '04-07', to: '05-31', price: 110 },
       { from: '06-01', to: '06-30', price: 130 },
@@ -141,37 +95,37 @@
       { from: '01-09', to: '04-06', price: 220 }
     ];
 
-    function calculate() {
+    function calculatePrice() {
       const picker = document.getElementById('daterange')._litepicker;
-      if (!picker) return;
+      if (!picker.getStartDate() || !picker.getEndDate()) return;
       const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
       const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
       const nights = end.diff(start, 'day');
 
       if (nights < 2) {
-        document.getElementById('pricePerNight').innerText = 'CHF 0';
-        document.getElementById('aptCost').innerText = 'CHF 0';
-        document.getElementById('taxCost').innerText = 'CHF 0';
-        document.getElementById('totalPrice').innerText = 'Soggiorno minimo 2 notti';
+        document.getElementById('totalPrice').innerText = 'Minimo 2 notti';
         return;
       }
 
       let totalApt = 0;
-      let prices = [];
+      const nightPrices = [];
       for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
         const mmdd = d.format('MM-DD');
-        const range = priceRanges.find(r => mmdd >= r.from && mmdd <= r.to);
+        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
         const price = range ? range.price : 0;
         totalApt += price;
-        prices.push(price);
+        nightPrices.push(price);
       }
 
-      const avg = Math.round(totalApt / nights);
-      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
+      const avgPrice = Math.round(totalApt / nights);
+      const adults = parseInt(document.getElementById('adults').value);
+      const teens = parseInt(document.getElementById('teens').value);
+      const kids = parseInt(document.getElementById('kids').value);
+      const tax = (adults * 6 + teens * 3) * nights;
       const cleaning = 120;
       const total = totalApt + tax + cleaning;
 
-      document.getElementById('pricePerNight').innerText = `CHF ${avg}`;
+      document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
       document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
       document.getElementById('taxCost').innerText = `CHF ${tax}`;
       document.getElementById('totalPrice').innerText = `CHF ${total}`;
@@ -183,13 +137,16 @@
       numberOfMonths: 2,
       numberOfColumns: 2,
       format: 'YYYY-MM-DD',
+      tooltipText: { one: 'notte', other: 'notti' },
+      tooltipNumber: (totalDays) => totalDays,
       setup: (picker) => {
-        picker.on('selected', () => calculate());
-      },
-      lockDays: [
-        '2025-07-10', '2025-07-11', '2025-07-12'
-      ] // iCal si integrerebbe qui dinamicamente
+        picker.on('selected', calculatePrice);
+      }
     });
+
+    document.getElementById('adults').addEventListener('change', calculatePrice);
+    document.getElementById('teens').addEventListener('change', calculatePrice);
+    document.getElementById('kids').addEventListener('change', calculatePrice);
   </script>
 </body>
 </html>
