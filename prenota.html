@@ -1,171 +1,153 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prenotazioni - Altrove Leukerbad</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
-  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
-  <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prenotazioni – Altrove Leukerbad</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
+      background: #f4f4f4;
       margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
+      padding: 2rem;
     }
     .container {
       max-width: 800px;
-      margin: 40px auto;
+      margin: auto;
       background: white;
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
     }
-    h1 {
-      text-align: center;
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
       margin-bottom: 2rem;
     }
-    label {
+    form label {
       display: block;
       margin-top: 1rem;
     }
-    input, select {
+    form input, form select {
       width: 100%;
       padding: 0.5rem;
       margin-top: 0.3rem;
-      border-radius: 5px;
+      border-radius: 8px;
       border: 1px solid #ccc;
     }
-    .counter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-    }
-    .counter span {
-      margin: 0 10px;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .total-summary {
       margin-top: 2rem;
-      width: 100%;
-    }
-    .totals {
-      margin-top: 1.5rem;
-      background: #f9f9f9;
       padding: 1rem;
-      border-radius: 5px;
+      background: #f9f9f9;
+      border-radius: 8px;
     }
-    .totals p {
-      margin: 0.5rem 0;
+    .submit-button {
+      margin-top: 2rem;
+      background: #444;
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Prenota il tuo soggiorno</h1>
-    <label for="name">Nome:</label>
-    <input type="text" id="name" required>
+    <h2>Prenota il tuo soggiorno</h2>
 
-    <label for="surname">Cognome:</label>
-    <input type="text" id="surname" required>
+    <!-- Calendario pubblico Google Calendar -->
+    <iframe src="https://calendar.google.com/calendar/embed?src=altrove.leukerbad%40gmail.com&ctz=Europe%2FZurich"></iframe>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
+    <!-- Modulo di prenotazione -->
+    <form action="https://formspree.io/f/xpwrprzr" method="POST" oninput="updatePrices()">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
 
-    <label for="daterange">Date soggiorno:</label>
-    <input type="text" id="daterange" required>
+      <label for="cognome">Cognome:</label>
+      <input type="text" id="cognome" name="cognome" required>
 
-    <div class="counter">
-      <label>Adulti (16+):</label>
-      <button onclick="changeCount('adults', -1)">-</button>
-      <span id="adults">2</span>
-      <button onclick="changeCount('adults', 1)">+</button>
-    </div>
-    <div class="counter">
-      <label>Ragazzi (6–16):</label>
-      <button onclick="changeCount('teens', -1)">-</button>
-      <span id="teens">0</span>
-      <button onclick="changeCount('teens', 1)">+</button>
-    </div>
-    <div class="counter">
-      <label>Bambini (0–6):</label>
-      <button onclick="changeCount('kids', -1)">-</button>
-      <span id="kids">0</span>
-      <button onclick="changeCount('kids', 1)">+</button>
-    </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
 
-    <div class="totals">
-      <p>Prezzo medio per notte: <strong id="nightPrice">CHF 0</strong></p>
-      <p>Costo appartamento: <strong id="aptTotal">CHF 0</strong></p>
-      <p>Tassa di soggiorno: <strong id="tax">CHF 0</strong></p>
-      <p>Costo pulizia: <strong>CHF 120</strong></p>
-      <p>Totale soggiorno: <strong id="total">CHF 0</strong></p>
-    </div>
+      <label for="checkin">Data check-in:</label>
+      <input type="date" id="checkin" name="checkin" required>
 
-    <button onclick="calculatePrice()">Calcola Totale</button>
+      <label for="checkout">Data check-out:</label>
+      <input type="date" id="checkout" name="checkout" required>
+
+      <label for="adulti">Adulti (16+):</label>
+      <input type="number" id="adulti" name="adulti" min="0" value="2">
+
+      <label for="ragazzi">Ragazzi (6-16):</label>
+      <input type="number" id="ragazzi" name="ragazzi" min="0" value="0">
+
+      <label for="bambini">Bambini (0-6):</label>
+      <input type="number" id="bambini" name="bambini" min="0" value="0">
+
+      <div class="total-summary">
+        <p><strong>Prezzo per notte:</strong> <span id="prezzoNotte">CHF 0</span></p>
+        <p><strong>Costo appartamento:</strong> <span id="costoAppartamento">CHF 0</span></p>
+        <p><strong>Tassa soggiorno:</strong> <span id="tassaSoggiorno">CHF 0</span></p>
+        <p><strong>Pulizia:</strong> CHF 120</p>
+        <hr>
+        <p><strong>Totale soggiorno:</strong> <span id="totale">CHF 0</span></p>
+      </div>
+
+      <button type="submit" class="submit-button">Prenota ora</button>
+    </form>
   </div>
 
   <script>
-    let counts = { adults: 2, teens: 0, kids: 0 };
-
-    const priceRanges = [
-      { from: '04-07', to: '05-31', price: 110 },
-      { from: '06-01', to: '06-30', price: 130 },
-      { from: '07-01', to: '08-31', price: 160 },
-      { from: '09-01', to: '09-30', price: 130 },
-      { from: '10-01', to: '12-15', price: 110 },
-      { from: '12-16', to: '12-20', price: 220 },
-      { from: '12-21', to: '01-08', price: 350 },
-      { from: '01-09', to: '04-06', price: 220 }
+    const stagioni = [
+      { da: '04-07', a: '05-31', prezzo: 110 },
+      { da: '06-01', a: '06-30', prezzo: 130 },
+      { da: '07-01', a: '08-31', prezzo: 160 },
+      { da: '09-01', a: '09-30', prezzo: 130 },
+      { da: '10-01', a: '12-15', prezzo: 110 },
+      { da: '12-16', a: '12-20', prezzo: 220 },
+      { da: '12-21', a: '01-08', prezzo: 350 },
+      { da: '01-09', a: '04-06', prezzo: 220 },
     ];
 
-    function changeCount(type, delta) {
-      counts[type] = Math.max(0, counts[type] + delta);
-      document.getElementById(type).innerText = counts[type];
-    }
+    function updatePrices() {
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const adulti = parseInt(document.getElementById('adulti').value || 0);
+      const ragazzi = parseInt(document.getElementById('ragazzi').value || 0);
+      const bambini = parseInt(document.getElementById('bambini').value || 0);
 
-    new Litepicker({
-      element: document.getElementById('daterange'),
-      singleMode: false,
-      format: 'YYYY-MM-DD'
-    });
+      if (!checkin || !checkout) return;
 
-    function calculatePrice() {
-      const picker = document.getElementById('daterange')._litepicker;
-      if (!picker || !picker.getStartDate() || !picker.getEndDate()) return;
-      const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
-      const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
-      const nights = end.diff(start, 'day');
-      if (nights < 2) {
-        alert("Il soggiorno minimo è di 2 notti.");
+      const d1 = new Date(checkin);
+      const d2 = new Date(checkout);
+      const diffTime = d2 - d1;
+      const notti = diffTime / (1000 * 60 * 60 * 24);
+      if (notti < 2) {
+        document.getElementById('totale').innerText = 'Soggiorno minimo 2 notti';
         return;
       }
 
-      let aptTotal = 0, priceList = [];
-      for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
-        const mmdd = d.format('MM-DD');
-        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
-        const price = range ? range.price : 0;
-        aptTotal += price;
-        priceList.push(price);
+      let prezzoTotale = 0;
+      for (let i = 0; i < notti; i++) {
+        const giorno = new Date(d1);
+        giorno.setDate(giorno.getDate() + i);
+        const mmdd = (giorno.getMonth()+1).toString().padStart(2,'0') + '-' + giorno.getDate().toString().padStart(2,'0');
+        const stagione = stagioni.find(s => mmdd >= s.da && mmdd <= s.a);
+        prezzoTotale += stagione ? stagione.prezzo : 0;
       }
-      const avg = Math.round(aptTotal / nights);
-      const tax = ((counts.adults * 6) + (counts.teens * 3)) * nights;
-      const total = aptTotal + tax + 120;
+      const mediaNotte = Math.round(prezzoTotale / notti);
+      const tassa = notti * (adulti * 6 + ragazzi * 3);
+      const totale = prezzoTotale + tassa + 120;
 
-      document.getElementById('nightPrice').innerText = `CHF ${avg}`;
-      document.getElementById('aptTotal').innerText = `CHF ${aptTotal}`;
-      document.getElementById('tax').innerText = `CHF ${tax}`;
-      document.getElementById('total').innerText = `CHF ${total}`;
+      document.getElementById('prezzoNotte').innerText = `CHF ${mediaNotte}`;
+      document.getElementById('costoAppartamento').innerText = `CHF ${prezzoTotale}`;
+      document.getElementById('tassaSoggiorno').innerText = `CHF ${tassa}`;
+      document.getElementById('totale').innerText = `CHF ${totale}`;
     }
   </script>
 </body>
