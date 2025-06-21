@@ -25,7 +25,8 @@
       margin-top: 1rem;
     }
     .booking-form input,
-    .booking-form select {
+    .booking-form select,
+    .booking-form textarea {
       width: 100%;
       padding: 0.5rem;
       margin-top: 0.5rem;
@@ -116,14 +117,15 @@
   <script>
     let counts = { adults: 2, teens: 0, kids: 0 };
     const priceRanges = [
-      { from: '2025-04-07', to: '2025-05-31', price: 110 },
-      { from: '2025-06-01', to: '2025-06-30', price: 130 },
-      { from: '2025-07-01', to: '2025-08-31', price: 160 },
-      { from: '2025-09-01', to: '2025-09-30', price: 130 },
-      { from: '2025-10-01', to: '2025-12-15', price: 110 },
-      { from: '2025-12-16', to: '2025-12-20', price: 220 },
-      { from: '2025-12-21', to: '2026-01-08', price: 350 },
-      { from: '2026-01-09', to: '2026-04-06', price: 220 }
+      { from: '04-07', to: '05-31', price: 110 },
+      { from: '06-01', to: '06-30', price: 130 },
+      { from: '07-01', to: '08-31', price: 160 },
+      { from: '09-01', to: '09-30', price: 130 },
+      { from: '10-01', to: '12-15', price: 110 },
+      { from: '12-16', to: '12-20', price: 220 },
+      { from: '12-21', to: '12-31', price: 350 },
+      { from: '01-01', to: '01-08', price: 350 },
+      { from: '01-09', to: '04-06', price: 220 }
     ];
 
     function changeCount(type, delta) {
@@ -134,7 +136,7 @@
 
     function calculatePrice() {
       const picker = document.getElementById('daterange')._litepicker;
-      if (!picker) return;
+      if (!picker || !picker.getStartDate() || !picker.getEndDate()) return;
 
       const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
       const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
@@ -149,18 +151,14 @@
       }
 
       let totalApt = 0;
-      let nightPrices = [];
-
       for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
-        const dstr = d.format('YYYY-MM-DD');
-        const range = priceRanges.find(p => dstr >= p.from && dstr <= p.to);
-        const price = range ? range.price : 0;
-        totalApt += price;
-        nightPrices.push(price);
+        const mmdd = d.format('MM-DD');
+        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
+        totalApt += range ? range.price : 0;
       }
 
-      const avgPrice = nightPrices.length ? Math.round(totalApt / nightPrices.length) : 0;
-      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
+      const avgPrice = Math.round(totalApt / nights);
+      const tax = (counts.adults * 6 + counts.teens * 3) * nights;
       const cleaning = 120;
       const total = totalApt + tax + cleaning;
 
