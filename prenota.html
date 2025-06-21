@@ -12,175 +12,179 @@
   <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: #f2f2f2;
+      font-family: Arial, sans-serif;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
+    .booking-section {
+      max-width: 700px;
+      margin: 0 auto;
       padding: 2rem;
+      background-color: #f9f9f9;
       border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    label {
+    .booking-form label,
+    .counter label {
       display: block;
       margin-top: 1rem;
     }
-    input, select {
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
       width: 100%;
       padding: 0.5rem;
-      margin-top: 0.3rem;
-      border-radius: 6px;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
     }
     .counter {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: space-between;
       margin-top: 1rem;
     }
     .counter button {
-      width: 30px;
-      height: 30px;
-      font-size: 1.2rem;
+      padding: 0.3rem 0.8rem;
+      font-size: 1rem;
       border: none;
-      background: #ccc;
+      background-color: #ccc;
       cursor: pointer;
+      border-radius: 4px;
     }
-    .results {
-      margin-top: 2rem;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 12px;
+    .total-breakdown, .price-per-night, .total-price {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1rem;
     }
-    .results span {
-      display: block;
-      margin: 0.3rem 0;
-    }
-    button.submit {
-      margin-top: 2rem;
-      padding: 1rem;
-      background: #333;
-      color: white;
+    .submit-button {
       width: 100%;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background-color: #444;
+      color: white;
       border: none;
       border-radius: 8px;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <h2>Prenota il tuo soggiorno</h2>
+  <section class="booking-section">
+    <h2>Prenota il tuo soggiorno</h2>
+    <form class="booking-form" action="https://formspree.io/f/xpwrprzr" method="POST">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
 
-  <label for="fullname">Nome e Cognome:</label>
-  <input type="text" id="fullname" required>
+      <label for="cognome">Cognome:</label>
+      <input type="text" id="cognome" name="cognome" required>
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
 
-  <label for="daterange">Date del soggiorno:</label>
-  <input type="text" id="daterange" required>
+      <label for="daterange">Date del soggiorno:</label>
+      <input type="text" id="daterange" name="daterange" required>
 
-  <div class="counter">
-    <label>Adulti (16+):</label>
-    <button type="button" onclick="changeCount('adults', -1)">–</button>
-    <span id="adults">2</span>
-    <button type="button" onclick="changeCount('adults', 1)">+</button>
-  </div>
+      <div class="counter">
+        <label>Adulti (16+):</label>
+        <button type="button" onclick="changeCount('adults', -1)">–</button>
+        <span id="adults">0</span>
+        <button type="button" onclick="changeCount('adults', 1)">+</button>
+      </div>
 
-  <div class="counter">
-    <label>Ragazzi (6–16):</label>
-    <button type="button" onclick="changeCount('teens', -1)">–</button>
-    <span id="teens">0</span>
-    <button type="button" onclick="changeCount('teens', 1)">+</button>
-  </div>
+      <div class="counter">
+        <label>Ragazzi (6–16):</label>
+        <button type="button" onclick="changeCount('teens', -1)">–</button>
+        <span id="teens">0</span>
+        <button type="button" onclick="changeCount('teens', 1)">+</button>
+      </div>
 
-  <div class="counter">
-    <label>Bambini (0–6):</label>
-    <button type="button" onclick="changeCount('kids', -1)">–</button>
-    <span id="kids">0</span>
-    <button type="button" onclick="changeCount('kids', 1)">+</button>
-  </div>
+      <div class="counter">
+        <label>Bambini (0–6):</label>
+        <button type="button" onclick="changeCount('kids', -1)">–</button>
+        <span id="kids">0</span>
+        <button type="button" onclick="changeCount('kids', 1)">+</button>
+      </div>
 
-  <div class="results">
-    <span>Prezzo medio per notte: <strong id="priceNight">CHF 0</strong></span>
-    <span>Prezzo appartamento: <strong id="apt">CHF 0</strong></span>
-    <span>Tassa soggiorno: <strong id="tax">CHF 0</strong></span>
-    <span>Costi pulizia: <strong>CHF 120</strong></span>
-    <span>Totale soggiorno: <strong id="total">CHF 0</strong></span>
-  </div>
+      <div class="price-per-night">Prezzo medio per notte: <span id="pricePerNight">CHF 0</span></div>
+      <div class="total-breakdown">
+        Costo appartamento: <span id="aptCost">CHF 0</span><br />
+        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br />
+        Pulizia finale: <span id="cleaning">CHF 120</span>
+      </div>
+      <div class="total-price">Totale soggiorno: <span id="totalPrice">CHF 0</span></div>
 
-  <button class="submit" onclick="calculate()">Calcola Totale</button>
-</div>
+      <button class="submit-button" type="submit">Prenota ora</button>
+    </form>
+  </section>
 
-<script>
-let counts = { adults: 2, teens: 0, kids: 0 };
-const cleaning = 120;
+  <script>
+    let counts = { adults: 0, teens: 0, kids: 0 };
+    const priceRanges = [
+      { from: '04-07', to: '05-31', price: 110 },
+      { from: '06-01', to: '06-30', price: 130 },
+      { from: '07-01', to: '08-31', price: 160 },
+      { from: '09-01', to: '09-30', price: 130 },
+      { from: '10-01', to: '12-15', price: 110 },
+      { from: '12-16', to: '12-20', price: 220 },
+      { from: '12-21', to: '01-08', price: 350 },
+      { from: '01-09', to: '04-06', price: 220 }
+    ];
 
-const priceRanges = [
-  { from: '04-07', to: '05-31', price: 110 },
-  { from: '06-01', to: '06-30', price: 130 },
-  { from: '07-01', to: '08-31', price: 160 },
-  { from: '09-01', to: '09-30', price: 130 },
-  { from: '10-01', to: '12-15', price: 110 },
-  { from: '12-16', to: '12-20', price: 220 },
-  { from: '12-21', to: '01-08', price: 350 },
-  { from: '01-09', to: '04-06', price: 220 }
-];
+    function changeCount(type, delta) {
+      counts[type] = Math.max(0, counts[type] + delta);
+      document.getElementById(type).innerText = counts[type];
+      calculatePrice();
+    }
 
-function changeCount(type, delta) {
-  counts[type] = Math.max(0, counts[type] + delta);
-  document.getElementById(type).innerText = counts[type];
-}
+    function calculatePrice() {
+      const picker = document.getElementById('daterange')._litepicker;
+      if (!picker || !picker.getStartDate() || !picker.getEndDate()) return;
 
-function getPriceForDate(date) {
-  const mmdd = dayjs(date).format('MM-DD');
-  const season = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
-  return season ? season.price : 0;
-}
+      const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
+      const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
+      const nights = end.diff(start, 'day');
 
-function calculate() {
-  const picker = document.getElementById('daterange')._litepicker;
-  if (!picker) return;
+      if (isNaN(nights) || nights < 2) {
+        document.getElementById('pricePerNight').innerText = 'CHF 0';
+        document.getElementById('aptCost').innerText = 'CHF 0';
+        document.getElementById('taxCost').innerText = 'CHF 0';
+        document.getElementById('totalPrice').innerText = 'Soggiorno minimo 2 notti';
+        return;
+      }
 
-  const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
-  const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
-  const nights = end.diff(start, 'day');
+      let totalApt = 0;
+      let nightPrices = [];
+      for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
+        const mmdd = d.format('MM-DD');
+        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
+        const price = range ? range.price : 0;
+        totalApt += price;
+        nightPrices.push(price);
+      }
+      const avgPrice = nightPrices.length ? Math.round(totalApt / nightPrices.length) : 0;
+      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
+      const cleaning = 120;
+      const total = totalApt + tax + cleaning;
 
-  if (isNaN(nights) || nights < 2) {
-    alert("Soggiorno minimo 2 notti");
-    return;
-  }
+      document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
+      document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
+      document.getElementById('taxCost').innerText = `CHF ${tax}`;
+      document.getElementById('totalPrice').innerText = `CHF ${total}`;
+    }
 
-  let totalApt = 0;
-  for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
-    totalApt += getPriceForDate(d);
-  }
-
-  const avgNight = Math.round(totalApt / nights);
-  const tax = (counts.adults * 6 + counts.teens * 3) * nights;
-  const total = totalApt + tax + cleaning;
-
-  document.getElementById("priceNight").innerText = `CHF ${avgNight}`;
-  document.getElementById("apt").innerText = `CHF ${totalApt}`;
-  document.getElementById("tax").innerText = `CHF ${tax}`;
-  document.getElementById("total").innerText = `CHF ${total}`;
-}
-
-new Litepicker({
-  element: document.getElementById('daterange'),
-  singleMode: false,
-  numberOfMonths: 2,
-  numberOfColumns: 2,
-  format: 'YYYY-MM-DD',
-  setup: (picker) => {
-    picker.on('selected', () => calculate());
-  }
-});
-</script>
+    new Litepicker({
+      element: document.getElementById('daterange'),
+      singleMode: false,
+      numberOfMonths: 2,
+      numberOfColumns: 2,
+      format: 'YYYY-MM-DD',
+      setup: (picker) => {
+        picker.on('selected', () => calculatePrice());
+      },
+      lockDays: [
+        '2025-07-10', '2025-07-11', '2025-07-12'
+      ]
+    });
+  </script>
 </body>
 </html>
