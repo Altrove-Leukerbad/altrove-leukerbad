@@ -1,153 +1,93 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ALTROVE Leukerbad</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Altrove Leukerbad</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="img/favicon.png" type="image/png" />
   <style>
-    html, body {
+    body {
+      font-family: sans-serif;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
-      font-family: 'Helvetica Neue', sans-serif;
-      scroll-behavior: smooth;
-      background-color: white;
+      background-color: #f9f9f9;
+      color: #333;
     }
-
-    .hero {
-      height: 100vh;
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    header {
+      background-color: #fff;
       padding: 20px;
-      gap: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hero {
+      padding: 60px 20px;
       text-align: center;
     }
-
-    .hero-logo {
-      max-width: 80vw;
-      max-height: 60vh;
-      height: auto;
-    }
-
-    .subtitle {
-      font-size: 1.6rem;
-      color: #444;
-      margin: 0;
-    }
-
-    .btn {
-      padding: 15px 40px;
-      font-size: 1.3rem;
-      color: white;
-      background-color: #222;
-      border: none;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #555;
-    }
-
-    #scopri {
-      background-color: #f0f0f0;
-      padding: 80px 20px;
-      min-height: 100vh;
-      text-align: center;
-    }
-
-    #scopri h2 {
+    h1 {
       font-size: 2.5rem;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
-
-    .key-points {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 40px;
+    p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
     }
-
-    .point {
-      background: #fff;
-      border-radius: 12px;
-      padding: 40px 30px;
-      width: 180px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #111;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-
-    .point:hover {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transform: translateY(-5px);
-    }
-
-    .home-btn {
-      margin-top: 30px;
-    }
-
-    @media (max-width: 600px) {
-      .key-points {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .point {
-        width: 80vw;
-        padding: 30px 20px;
-        font-size: 1.3rem;
-      }
-
-      .hero-logo {
-        max-width: 90vw;
-        max-height: 40vh;
-      }
-
-      .subtitle {
-        font-size: 1.2rem;
-      }
-
-      .btn {
-        font-size: 1rem;
-        padding: 12px 25px;
-      }
+    .language-selector {
+      text-align: right;
+      padding: 15px 20px;
+      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
+  <!-- Selettore lingua -->
+  <div class="language-selector">
+    <label for="lang-select"><strong>Lingua:</strong></label>
+    <select id="lang-select">
+      <option value="it">Italiano</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
-  <section class="hero" id="top">
-    <img src="logo.png" alt="Logo Altrove" class="hero-logo" />
-    <h2 class="subtitle">Cosy Lodge nel cuore di Leukerbad</h2>
-    <a href="#scopri" class="btn">Scopri di più</a>
+  <!-- Contenuto principale -->
+  <header>
+    <img src="img/logo.png" alt="Logo Altrove" style="max-height: 80px;">
+  </header>
+
+  <section class="hero">
+    <h1 id="title">Benvenuti a Altrove Leukerbad</h1>
+    <p id="description">Il vostro rifugio tra le montagne della Svizzera, per vacanze e relax tutto l’anno.</p>
   </section>
 
-  <section id="scopri">
-    <h2>Scopri ALTROVE</h2>
-    <div class="key-points">
-      <a href="appartamento.html" class="point">Appartamento</a>
-      <a href="cosa-fare.html" class="point">Cosa fare</a>
-      <a href="info-e-guest-card.html" class="point">Info e Guest Card</a>
-      <a href="contatti-e-prenota.html" class="point">Contatti e Prenota</a>
-    </div>
-    <div class="home-btn">
-      <a href="#top" class="btn">Torna alla Home</a>
-    </div>
-  </section>
+  <!-- Script traduzioni -->
+  <script>
+    const translations = {
+      it: {
+        title: "Benvenuti a Altrove Leukerbad",
+        description: "Il vostro rifugio tra le montagne della Svizzera, per vacanze e relax tutto l’anno."
+      },
+      fr: {
+        title: "Bienvenue à Altrove Leukerbad",
+        description: "Votre refuge dans les montagnes suisses, pour des vacances et une détente toute l'année."
+      },
+      de: {
+        title: "Willkommen bei Altrove Leukerbad",
+        description: "Ihr Rückzugsort in den Schweizer Bergen für Urlaub und Erholung das ganze Jahr über."
+      },
+      en: {
+        title: "Welcome to Altrove Leukerbad",
+        description: "Your retreat in the Swiss mountains, for holidays and relaxation all year round."
+      }
+    };
 
+    document.getElementById('lang-select').addEventListener('change', function () {
+      const lang = this.value;
+      document.getElementById('title').textContent = translations[lang].title;
+      document.getElementById('description').textContent = translations[lang].description;
+    });
+  </script>
 </body>
 </html>
