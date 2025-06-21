@@ -54,6 +54,12 @@
       font-size: 1.2rem;
       margin-top: 1.5rem;
     }
+    .price-per-night {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: #555;
+    }
     .submit-button {
       display: block;
       width: 100%;
@@ -72,6 +78,9 @@
   <section class="booking-section">
     <h2>Prenota il tuo soggiorno</h2>
     <form class="booking-form" action="https://formspree.io/f/xpwrprzr" method="POST">
+      <label for="fullname">Nome e Cognome:</label>
+      <input type="text" id="fullname" name="fullname" required>
+
       <label for="checkin">Data di arrivo:</label>
       <input type="date" id="checkin" name="checkin" required>
 
@@ -111,6 +120,10 @@
       <label for="note">Messaggio (opzionale):</label>
       <textarea name="note" id="note" rows="4" placeholder="Scrivi qui eventuali richieste particolari..."></textarea>
 
+      <div class="price-per-night">
+        Prezzo per notte: <span id="pricePerNight">CHF 0</span>
+      </div>
+
       <div class="total-price">
         Prezzo totale: <span id="totalPrice">CHF 0</span>
       </div>
@@ -140,14 +153,31 @@
     }
 
     function calculatePrice() {
-      const checkin = new Date(document.getElementById('checkin').value);
-      const checkout = new Date(document.getElementById('checkout').value);
+      const checkinInput = document.getElementById('checkin');
+      const checkoutInput = document.getElementById('checkout');
+      const checkin = new Date(checkinInput.value);
+      const checkout = new Date(checkoutInput.value);
+      const nights = (checkout - checkin) / (1000 * 3600 * 24);
+      
+      if (isNaN(nights) || nights < 2) {
+        document.getElementById('pricePerNight').innerText = 'CHF 0';
+        document.getElementById('totalPrice').innerText = 'Soggiorno minimo 2 notti';
+        return;
+      }
+
       let total = 0;
+      let nightPrices = [];
+
       for (let d = new Date(checkin); d < checkout; d.setDate(d.getDate() + 1)) {
         const mmdd = d.toISOString().slice(5, 10);
         const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
-        total += range ? range.price : 0;
+        const price = range ? range.price : 0;
+        nightPrices.push(price);
+        total += price;
       }
+
+      const avgPrice = nightPrices.length ? Math.round(total / nightPrices.length) : 0;
+      document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
       document.getElementById('totalPrice').innerText = `CHF ${total}`;
     }
 
