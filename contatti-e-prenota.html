@@ -30,40 +30,72 @@
         </div>
       </div>
 
-      <!-- DESTRA -->
-      <div class="contact-right">
-        <form action="https://formspree.io/f/xpwrprzr" method="POST">
-          <label>Nome*</label>
-          <input type="text" name="Nome" required />
+<!-- DESTRA -->
+<div class="contact-right">
+  <form action="https://formspree.io/f/xpwrprzr" method="POST">
+    <label>Nome*</label>
+    <input type="text" name="Nome" required />
 
-          <label>Email*</label>
-          <input type="email" name="Email" required />
+    <label>Email*</label>
+    <input type="email" name="Email" required />
 
-          <label>Telefono</label>
-          <input id="phone" type="tel" name="Telefono" />
+    <label>Telefono</label>
+    <input id="phone" type="tel" name="Telefono" />
 
-          <label>Numero di ospiti (compresi bambini)*</label>
-          <input type="number" name="Ospiti" required min="1" />
+    <label>Numero di ospiti (compresi bambini)*</label>
+    <input type="number" name="Ospiti" required min="1" />
 
-          <label>Check-in*</label>
-          <input type="date" name="Check-in" required />
+    <label>Adulti (16+)*</label>
+    <select name="Adulti" required>
+      <option value="" disabled selected>Seleziona</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
 
-          <label>Check-out*</label>
-          <input type="date" name="Check-out" required />
+    <label>Ragazzi (6–16 anni)*</label>
+    <select name="Ragazzi" required>
+      <option value="" disabled selected>Seleziona</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
 
-          <label>Messaggio*</label>
-          <textarea name="Messaggio" required rows="5"></textarea>
+    <label>Bambini (0–6 anni)*</label>
+    <select name="Bambini" required>
+      <option value="" disabled selected>Seleziona</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
 
-          <label class="consent">
-            <input type="checkbox" name="Consenso" required />
-            Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove.
-          </label>
+    <label>Check-in*</label>
+    <input type="date" name="Check-in" required />
 
-          <button type="submit" class="btn">Invia</button>
-        </form>
-      </div>
-    </div>
-  </section>
+    <label>Check-out*</label>
+    <input type="date" name="Check-out" required />
+
+    <label>Messaggio</label>
+    <textarea name="Messaggio" rows="5"></textarea>
+
+    <label class="consent">
+      <input type="checkbox" name="Consenso" required />
+      Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove.
+    </label>
+
+    <button type="submit" class="btn">Invia</button>
+  </form>
+</div>
+
 
   <!-- FOOTER -->
 <footer class="contact-footer">
