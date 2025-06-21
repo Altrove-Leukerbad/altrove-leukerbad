@@ -159,11 +159,13 @@
 
     function calculatePrice() {
       const picker = document.getElementById('daterange')._litepicker;
+      if (!picker || !picker.getStartDate() || !picker.getEndDate()) return;
+
       const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
       const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
       const nights = end.diff(start, 'day');
 
-      if (isNaN(nights) || nights < 2) {
+      if (nights < 2) {
         document.getElementById('pricePerNight').innerText = 'CHF 0';
         document.getElementById('aptCost').innerText = 'CHF 0';
         document.getElementById('taxCost').innerText = 'CHF 0';
@@ -181,7 +183,7 @@
         nightPrices.push(price);
       }
       const avgPrice = nightPrices.length ? Math.round(totalApt / nightPrices.length) : 0;
-      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
+      const tax = (counts.adults * 6 + counts.teens * 3) * nights;
       const cleaning = 120;
       const total = totalApt + tax + cleaning;
 
@@ -191,6 +193,8 @@
       document.getElementById('totalPrice').innerText = `CHF ${total}`;
     }
 
+    const bookedDays = ['2025-07-10', '2025-07-11', '2025-07-12'];
+
     new Litepicker({
       element: document.getElementById('daterange'),
       singleMode: false,
@@ -199,12 +203,10 @@
       format: 'YYYY-MM-DD',
       tooltipText: { one: 'notte', other: 'notti' },
       tooltipNumber: (totalDays) => totalDays,
+      lockDays: bookedDays,
       setup: (picker) => {
         picker.on('selected', () => calculatePrice());
-      },
-      lockDays: [
-        '2025-07-10', '2025-07-11', '2025-07-12'
-      ]
+      }
     });
   </script>
 </body>
