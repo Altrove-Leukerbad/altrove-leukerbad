@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prenotazioni – Altrove Leukerbad</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .booking-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: #f9f9f9;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .booking-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .booking-form label {
+      display: block;
+      margin-top: 1rem;
+    }
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .counter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    .counter label {
+      flex: 1;
+    }
+    .counter button {
+      padding: 0.3rem 0.8rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #ccc;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .total-price {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .submit-button {
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <section class="booking-section">
+    <h2>Prenota il tuo soggiorno</h2>
+    <form class="booking-form" action="https://formspree.io/f/xpwrprzr" method="POST">
+      <label for="checkin">Data di arrivo:</label>
+      <input type="date" id="checkin" name="checkin" required>
+
+      <label for="checkout">Data di partenza:</label>
+      <input type="date" id="checkout" name="checkout" required>
+
+      <label for="guestcount">Numero totale ospiti:</label>
+      <select id="guestcount" name="guestcount">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+      <div class="counter">
+        <label>Adulti (16+):</label>
+        <button type="button" onclick="changeCount('adults', -1)">–</button>
+        <span id="adults">2</span>
+        <button type="button" onclick="changeCount('adults', 1)">+</button>
+      </div>
+
+      <div class="counter">
+        <label>Ragazzi (6–16):</label>
+        <button type="button" onclick="changeCount('teens', -1)">–</button>
+        <span id="teens">0</span>
+        <button type="button" onclick="changeCount('teens', 1)">+</button>
+      </div>
+
+      <div class="counter">
+        <label>Bambini (0–6):</label>
+        <button type="button" onclick="changeCount('kids', -1)">–</button>
+        <span id="kids">0</span>
+        <button type="button" onclick="changeCount('kids', 1)">+</button>
+      </div>
+
+      <label for="note">Messaggio (opzionale):</label>
+      <textarea name="note" id="note" rows="4" placeholder="Scrivi qui eventuali richieste particolari..."></textarea>
+
+      <div class="total-price">
+        Prezzo totale: <span id="totalPrice">CHF 0</span>
+      </div>
+
+      <button class="submit-button" type="submit">Prenota ora</button>
+    </form>
+  </section>
+
+  <script>
+    const priceRanges = [
+      { from: '04-07', to: '05-31', price: 110 },
+      { from: '06-01', to: '06-30', price: 130 },
+      { from: '07-01', to: '08-31', price: 160 },
+      { from: '09-01', to: '09-30', price: 130 },
+      { from: '10-01', to: '12-15', price: 110 },
+      { from: '12-16', to: '12-20', price: 220 },
+      { from: '12-21', to: '01-08', price: 350 },
+      { from: '01-09', to: '04-06', price: 220 }
+    ];
+
+    let counts = { adults: 2, teens: 0, kids: 0 };
+
+    function changeCount(type, delta) {
+      counts[type] = Math.max(0, counts[type] + delta);
+      document.getElementById(type).innerText = counts[type];
+      calculatePrice();
+    }
+
+    function calculatePrice() {
+      const checkin = new Date(document.getElementById('checkin').value);
+      const checkout = new Date(document.getElementById('checkout').value);
+      let total = 0;
+      for (let d = new Date(checkin); d < checkout; d.setDate(d.getDate() + 1)) {
+        const mmdd = d.toISOString().slice(5, 10);
+        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
+        total += range ? range.price : 0;
+      }
+      document.getElementById('totalPrice').innerText = `CHF ${total}`;
+    }
+
+    document.getElementById('checkin').addEventListener('change', calculatePrice);
+    document.getElementById('checkout').addEventListener('change', calculatePrice);
+  </script>
+</body>
+</html>
