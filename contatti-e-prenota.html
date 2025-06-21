@@ -11,7 +11,7 @@
 <body>
   <section class="contact-section">
     <div class="contact-container">
-
+      
       <!-- SINISTRA -->
       <div class="contact-left">
         <h2>Contatti e Prenota</h2>
@@ -31,7 +31,7 @@
 
       <!-- DESTRA -->
       <div class="contact-right">
-        <form id="contact-form" action="https://formspree.io/f/xpwrprzr" method="POST">
+        <form id="contactForm" action="https://formspree.io/f/xpwrprzr" method="POST">
           <label>Nome*</label>
           <input type="text" name="Nome" required />
 
@@ -47,14 +47,14 @@
           <label>Numero totale ospiti*</label>
           <input type="number" name="Totale ospiti" required min="1" />
 
-          <label>Adulti (16+)</label>
-          <input type="number" name="Adulti" min="0" />
+          <label>Adulti (16+)*</label>
+          <input type="number" name="Adulti" min="0" required />
 
-          <label>Ragazzi (6–16)</label>
-          <input type="number" name="Ragazzi" min="0" />
+          <label>Ragazzi (6–16)*</label>
+          <input type="number" name="Ragazzi" min="0" required />
 
-          <label>Bambini (0–6)</label>
-          <input type="number" name="Bambini" min="0" />
+          <label>Bambini (0–6)*</label>
+          <input type="number" name="Bambini" min="0" required />
 
           <label>Check-in*</label>
           <input type="date" name="Check-in" required />
@@ -94,7 +94,7 @@
     <a href="index.html" class="btn">Torna alla Home</a>
   </div>
 
-  <!-- intl-tel-input JS -->
+  <!-- JS per prefisso internazionale -->
   <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
   <script>
     const phoneInput = document.querySelector("#phone");
@@ -105,25 +105,12 @@
       utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js"
     });
 
-    const form = document.querySelector("#contact-form");
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      fetch(form.action, {
-        method: "POST",
-        body: data,
-        headers: {
-          'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          window.location.href = "thank-you.html";
-        } else {
-          alert("Errore nell'invio. Riprova.");
-        }
-      }).catch(error => {
-        alert("Errore di rete. Riprova.");
-      });
+    // Reindirizza dopo invio a thank-you.html
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', function (e) {
+      setTimeout(() => {
+        window.location.href = 'thank-you.html';
+      }, 200);
     });
   </script>
 </body>
