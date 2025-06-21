@@ -5,85 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prenotazioni – Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
   <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
+      background: #f4f4f4;
       margin: 0;
       padding: 0;
-      background-color: #fff;
     }
     .container {
       max-width: 1000px;
-      margin: auto;
+      margin: 2rem auto;
       padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .calendar-section, .summary-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .form-section, .calendar-section {
+      margin-bottom: 2rem;
     }
-    .summary-section {
-      margin-top: 2rem;
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
       border: 1px solid #ccc;
-      padding: 1rem;
-      border-radius: 10px;
-      background-color: #f5f5f5;
+      border-radius: 8px;
     }
-    .summary-section div {
-      margin-bottom: 0.5rem;
-    }
-    .booking-btn {
-      background-color: #e61e4d;
-      color: white;
-      padding: 0.75rem;
-      text-align: center;
-      font-size: 1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      border: none;
-    }
-    .people-select {
+    .counter {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
       margin: 1rem 0;
     }
-    .people-select label {
-      display: flex;
-      flex-direction: column;
+    .counter span {
+      font-size: 1.2rem;
+    }
+    .total-display {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      background: #eaeaea;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #e63946;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Prenota il tuo soggiorno</h1>
-    <div class="calendar-section">
-      <label for="daterange">Date del soggiorno:</label>
-      <input type="text" id="daterange" name="daterange" required />
-    </div>
+    <h2>Prenota il tuo soggiorno</h2>
+    <form action="https://formspree.io/f/xpwrprzr" method="POST">
+      <div class="form-section">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
 
-    <div class="people-select">
-      <label>Adulti (16+): <input type="number" id="adults" min="0" value="2"></label>
-      <label>Ragazzi (6–16): <input type="number" id="teens" min="0" value="0"></label>
-      <label>Bambini (0–6): <input type="number" id="kids" min="0" value="0"></label>
-    </div>
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" required>
 
-    <div class="summary-section">
-      <div>Prezzo medio per notte: <span id="pricePerNight">CHF 0</span></div>
-      <div>Costo appartamento: <span id="aptCost">CHF 0</span></div>
-      <div>Tassa di soggiorno: <span id="taxCost">CHF 0</span></div>
-      <div>Costi di pulizia: <span id="cleaning">CHF 120</span></div>
-      <div><strong>Totale soggiorno: <span id="totalPrice">CHF 0</span></strong></div>
-    </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-    <button class="booking-btn">Prenota ora</button>
+        <label for="daterange">Date del soggiorno:</label>
+        <input type="text" id="daterange" name="daterange" required>
+
+        <div class="counter">
+          <label>Adulti (16+):</label>
+          <button type="button" onclick="update('adults', -1)">-</button>
+          <span id="adults">2</span>
+          <button type="button" onclick="update('adults', 1)">+</button>
+        </div>
+        <div class="counter">
+          <label>Ragazzi (6–16):</label>
+          <button type="button" onclick="update('teens', -1)">-</button>
+          <span id="teens">0</span>
+          <button type="button" onclick="update('teens', 1)">+</button>
+        </div>
+        <div class="counter">
+          <label>Bambini (0–6):</label>
+          <button type="button" onclick="update('kids', -1)">-</button>
+          <span id="kids">0</span>
+          <button type="button" onclick="update('kids', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="calendar-section">
+        <label>Calendario:</label>
+        <input type="text" id="calendar" readonly>
+      </div>
+
+      <div class="total-display">
+        Prezzo medio per notte: <span id="avgNight">CHF 0</span><br>
+        Costo appartamento: <span id="aptCost">CHF 0</span><br>
+        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br>
+        Pulizia finale: <span id="cleaningCost">CHF 120</span><br>
+        <strong>Totale soggiorno: <span id="total">CHF 0</span></strong>
+      </div>
+
+      <button type="submit">Prenota ora</button>
+    </form>
   </div>
 
   <script>
+    let counts = { adults: 2, teens: 0, kids: 0 };
+    function update(type, delta) {
+      counts[type] = Math.max(0, counts[type] + delta);
+      document.getElementById(type).innerText = counts[type];
+      calculate();
+    }
+
     const priceRanges = [
       { from: '04-07', to: '05-31', price: 110 },
       { from: '06-01', to: '06-30', price: 130 },
@@ -95,58 +140,49 @@
       { from: '01-09', to: '04-06', price: 220 }
     ];
 
-    function calculatePrice() {
-      const picker = document.getElementById('daterange')._litepicker;
-      if (!picker.getStartDate() || !picker.getEndDate()) return;
-      const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
-      const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
-      const nights = end.diff(start, 'day');
-
-      if (nights < 2) {
-        document.getElementById('totalPrice').innerText = 'Minimo 2 notti';
-        return;
-      }
-
-      let totalApt = 0;
-      const nightPrices = [];
-      for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
-        const mmdd = d.format('MM-DD');
-        const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
-        const price = range ? range.price : 0;
-        totalApt += price;
-        nightPrices.push(price);
-      }
-
-      const avgPrice = Math.round(totalApt / nights);
-      const adults = parseInt(document.getElementById('adults').value);
-      const teens = parseInt(document.getElementById('teens').value);
-      const kids = parseInt(document.getElementById('kids').value);
-      const tax = (adults * 6 + teens * 3) * nights;
-      const cleaning = 120;
-      const total = totalApt + tax + cleaning;
-
-      document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
-      document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
-      document.getElementById('taxCost').innerText = `CHF ${tax}`;
-      document.getElementById('totalPrice').innerText = `CHF ${total}`;
-    }
-
     new Litepicker({
       element: document.getElementById('daterange'),
       singleMode: false,
       numberOfMonths: 2,
       numberOfColumns: 2,
       format: 'YYYY-MM-DD',
-      tooltipText: { one: 'notte', other: 'notti' },
-      tooltipNumber: (totalDays) => totalDays,
       setup: (picker) => {
-        picker.on('selected', calculatePrice);
+        picker.on('selected', () => calculate());
       }
     });
 
-    document.getElementById('adults').addEventListener('change', calculatePrice);
-    document.getElementById('teens').addEventListener('change', calculatePrice);
-    document.getElementById('kids').addEventListener('change', calculatePrice);
+    function calculate() {
+      const picker = document.getElementById('daterange')._litepicker;
+      if (!picker) return;
+      const start = dayjs(picker.getStartDate().format('YYYY-MM-DD'));
+      const end = dayjs(picker.getEndDate().format('YYYY-MM-DD'));
+      const nights = end.diff(start, 'day');
+      if (nights < 2) {
+        document.getElementById('total').innerText = 'Soggiorno minimo 2 notti';
+        return;
+      }
+
+      let totalApt = 0;
+      let prices = [];
+      for (let d = start.clone(); d.isBefore(end); d = d.add(1, 'day')) {
+        const mmdd = d.format('MM-DD');
+        const range = priceRanges.find(r => mmdd >= r.from && mmdd <= r.to);
+        const price = range ? range.price : 0;
+        totalApt += price;
+        prices.push(price);
+      }
+
+      const avgNight = prices.length ? Math.round(totalApt / prices.length) : 0;
+      const tax = ((counts.adults * 6) + (counts.teens * 3)) * nights;
+      const cleaning = 120;
+      const total = totalApt + tax + cleaning;
+
+      document.getElementById('avgNight').innerText = `CHF ${avgNight}`;
+      document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
+      document.getElementById('taxCost').innerText = `CHF ${tax}`;
+      document.getElementById('cleaningCost').innerText = `CHF ${cleaning}`;
+      document.getElementById('total').innerText = `CHF ${total}`;
+    }
   </script>
 </body>
 </html>
