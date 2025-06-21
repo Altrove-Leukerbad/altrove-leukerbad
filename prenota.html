@@ -5,20 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prenotazioni – Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
   <style>
     .booking-section {
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 2rem;
       background-color: #f9f9f9;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .booking-section h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .booking-form label {
+    .booking-form label,
+    .counter label {
       display: block;
       margin-top: 1rem;
     }
@@ -37,9 +36,6 @@
       justify-content: space-between;
       margin-top: 1rem;
     }
-    .counter label {
-      flex: 1;
-    }
     .counter button {
       padding: 0.3rem 0.8rem;
       font-size: 1rem;
@@ -48,20 +44,12 @@
       cursor: pointer;
       border-radius: 4px;
     }
-    .total-price {
+    .total-breakdown, .price-per-night, .total-price {
       text-align: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-    }
-    .price-per-night {
-      text-align: center;
-      margin-top: 0.5rem;
-      font-style: italic;
-      color: #555;
+      margin-top: 1rem;
+      font-size: 1rem;
     }
     .submit-button {
-      display: block;
       width: 100%;
       margin-top: 2rem;
       padding: 0.75rem;
@@ -72,6 +60,20 @@
       font-size: 1rem;
       cursor: pointer;
     }
+    .calendar-legend {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+    .legend-box {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 6px;
+      vertical-align: middle;
+    }
+    .available { background-color: green; }
+    .booked { background-color: red; }
   </style>
 </head>
 <body>
@@ -81,11 +83,8 @@
       <label for="fullname">Nome e Cognome:</label>
       <input type="text" id="fullname" name="fullname" required>
 
-      <label for="checkin">Data di arrivo:</label>
-      <input type="date" id="checkin" name="checkin" required>
-
-      <label for="checkout">Data di partenza:</label>
-      <input type="date" id="checkout" name="checkout" required>
+      <label for="daterange">Date del soggiorno:</label>
+      <input type="text" id="daterange" name="daterange" required>
 
       <label for="guestcount">Numero totale ospiti:</label>
       <select id="guestcount" name="guestcount">
@@ -118,21 +117,26 @@
       </div>
 
       <label for="note">Messaggio (opzionale):</label>
-      <textarea name="note" id="note" rows="4" placeholder="Scrivi qui eventuali richieste particolari..."></textarea>
+      <textarea name="note" id="note" rows="4"></textarea>
 
-      <div class="price-per-night">
-        Prezzo per notte: <span id="pricePerNight">CHF 0</span>
+      <div class="price-per-night">Prezzo medio per notte: <span id="pricePerNight">CHF 0</span></div>
+      <div class="total-breakdown">
+        Costo appartamento: <span id="aptCost">CHF 0</span><br />
+        Tassa di soggiorno: <span id="taxCost">CHF 0</span><br />
+        Pulizia finale: <span id="cleaning">CHF 120</span>
       </div>
-
-      <div class="total-price">
-        Prezzo totale: <span id="totalPrice">CHF 0</span>
-      </div>
+      <div class="total-price">Totale soggiorno: <span id="totalPrice">CHF 0</span></div>
 
       <button class="submit-button" type="submit">Prenota ora</button>
     </form>
+    <div class="calendar-legend">
+      <span class="legend-box available"></span> Disponibile
+      <span class="legend-box booked"></span> Occupato
+    </div>
   </section>
 
   <script>
+    let counts = { adults: 2, teens: 0, kids: 0 };
     const priceRanges = [
       { from: '04-07', to: '05-31', price: 110 },
       { from: '06-01', to: '06-30', price: 130 },
@@ -144,8 +148,6 @@
       { from: '01-09', to: '04-06', price: 220 }
     ];
 
-    let counts = { adults: 2, teens: 0, kids: 0 };
-
     function changeCount(type, delta) {
       counts[type] = Math.max(0, counts[type] + delta);
       document.getElementById(type).innerText = counts[type];
@@ -153,36 +155,56 @@
     }
 
     function calculatePrice() {
-      const checkinInput = document.getElementById('checkin');
-      const checkoutInput = document.getElementById('checkout');
-      const checkin = new Date(checkinInput.value);
-      const checkout = new Date(checkoutInput.value);
-      const nights = (checkout - checkin) / (1000 * 3600 * 24);
-      
+      const picker = document.getElementById('daterange')._litepicker;
+      const start = picker.getStartDate();
+      const end = picker.getEndDate();
+      const nights = end.diff(start, 'days');
+
       if (isNaN(nights) || nights < 2) {
         document.getElementById('pricePerNight').innerText = 'CHF 0';
+        document.getElementById('aptCost').innerText = 'CHF 0';
+        document.getElementById('taxCost').innerText = 'CHF 0';
         document.getElementById('totalPrice').innerText = 'Soggiorno minimo 2 notti';
         return;
       }
 
-      let total = 0;
+      let totalApt = 0;
       let nightPrices = [];
-
-      for (let d = new Date(checkin); d < checkout; d.setDate(d.getDate() + 1)) {
-        const mmdd = d.toISOString().slice(5, 10);
+      for (let d = start.clone(); d.isBefore(end); d.add(1, 'day')) {
+        const mmdd = d.format('MM-DD');
         const range = priceRanges.find(p => mmdd >= p.from && mmdd <= p.to);
         const price = range ? range.price : 0;
+        totalApt += price;
         nightPrices.push(price);
-        total += price;
       }
+      const avgPrice = nightPrices.length ? Math.round(totalApt / nightPrices.length) : 0;
+      const tax = (counts.adults * 6 + counts.teens * 3 + counts.kids * 0) * nights;
+      const cleaning = 120;
+      const total = totalApt + tax + cleaning;
 
-      const avgPrice = nightPrices.length ? Math.round(total / nightPrices.length) : 0;
       document.getElementById('pricePerNight').innerText = `CHF ${avgPrice}`;
+      document.getElementById('aptCost').innerText = `CHF ${totalApt}`;
+      document.getElementById('taxCost').innerText = `CHF ${tax}`;
       document.getElementById('totalPrice').innerText = `CHF ${total}`;
     }
 
-    document.getElementById('checkin').addEventListener('change', calculatePrice);
-    document.getElementById('checkout').addEventListener('change', calculatePrice);
+    new Litepicker({
+      element: document.getElementById('daterange'),
+      singleMode: false,
+      numberOfMonths: 2,
+      numberOfColumns: 2,
+      format: 'YYYY-MM-DD',
+      tooltipText: { one: 'notte', other: 'notti' },
+      tooltipNumber: (totalDays) => totalDays,
+      setup: (picker) => {
+        picker.on('selected', () => calculatePrice());
+      },
+      lockDays: [
+        // Aggiungi date occupate qui in formato 'YYYY-MM-DD'
+        '2025-07-10', '2025-07-11', '2025-07-12'
+      ],
+      highlightedDays: []
+    });
   </script>
 </body>
 </html>
