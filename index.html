@@ -145,6 +145,16 @@
   background: rgba(0, 0, 0, 0.25); /* meno scuro = più visibile la foto */
   z-index: 1;
 }
+#scopri::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, white, rgba(255,255,255,0));
+  z-index: 1;
+}
 
 #scopri > * {
   position: relative;
