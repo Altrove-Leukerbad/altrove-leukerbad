@@ -178,29 +178,27 @@
           <li>Terrazza</li>
           <li>Riscaldamento al suolo</li>
           <li>Zona carico/scarico</li>
-          <li>Parcheggio presso lo Sportarena</li>
+          <li>Parcheggio coperto presso lo Sportarena</li>
           <li>SmartTV</li>
           <li>Netflix</li>
+          <li>Programmi TV</li>
           <li>Wifi gratuito</li>
         </ul>
 
         <h4>Attrezzatura cucina</h4>
-        <ul>
-          <li>Cucina abitabile</li>
+        <ul> 
+          <li>Cucina open space</li>
+          <li>Cucina completa (pentole, padelle, posate,...)</li>
           <li>Lavastoviglie</li>
+          <li>Piano cottura</li>
+          <li>Frigo</li>
+          <li>Congelatore</li>  
+          <li>Forno</li>
           <li>Bollitore</li>
           <li>Microonde</li>
-          <li>Cucina open space</li>
-          <li>Forno</li>
-          <li>Tostapane</li>
           <li>Macchina caffè</li>
-          <li>Cucina completa</li>
-          <li>Frigo</li>
-          <li>Congelatore</li>
-          <li>Piano cottura induzione</li>
           <li>Set Raclette</li>
           <li>Set Fondue formaggio</li>
-          <li>Set Fondue Chinoise</li>
         </ul>
 
         <h4>Posizione</h4>
@@ -209,11 +207,11 @@
           <li>Nel cuore di Leukerbad</li>
           <li>Strada secondaria</li>
           <li>Posizione soleggiata</li>
-          <li>500m da Sportarena (3 minuti a piedi)</li>
+          <li>500m da Sportarena (2 minuti a piedi)</li>
           <li>1,8km Torrent (12 minuti a piedi)</li>
-          <li>1,2km Leukerbad Therme (8 minuti a piedi)</li>
+          <li>1,2km Leukerbad Therme (7 minuti a piedi)</li>
           <li>900m Supermarket (6 minuti a piedi)</li>
-          <li>500m fermata bus - Ringjet (3 minuti a piedi)</li>
+          <li>500m fermata bus - Ringjet (2 minuti a piedi)</li>
         </ul>
 
         <h4>Accessibilità</h4>
@@ -222,6 +220,7 @@
           <li>Adatto per anziani</li>
           <li>Automobile non necessaria</li>
           <li>Vietato fumare</li>
+          <li>Animali non ammessi</li>
         </ul>
 
         <h4>Servizi sport</h4>
@@ -276,6 +275,11 @@
       current = (current + 1) % images.length;
       showImage(current);
     });
+    // Autoplay: cambia immagine ogni 5 secondi
+setInterval(() => {
+  current = (current + 1) % images.length;
+  showImage(current);
+}, 5000);
   </script>
 </body>
 </html>
