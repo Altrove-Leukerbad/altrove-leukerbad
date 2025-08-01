@@ -126,6 +126,30 @@
         padding: 12px 25px;
       }
     }
+    #scopri {
+  background-image: url('img/IMG_20250727_123337.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  color: white;
+  position: relative;
+}
+
+#scopri::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* effetto scuro trasparente sopra la foto */
+  z-index: 1;
+}
+
+#scopri > * {
+  position: relative;
+  z-index: 2;
+}
+
   </style>
 </head>
 <body>
@@ -138,10 +162,6 @@
 
   <section id="scopri">
     <h2>Scopri ALTROVE</h2>
-    <!-- Immagine esterna panoramica sopra ai riquadri -->
-<div style="margin: 60px auto 30px auto; max-width: 1000px;">
-  <img src="img/Esterno3.jpg" alt="Vista esterna dell'appartamento Altrove" style="width: 100%; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.15);" />
-</div>
 <p style="text-align: center; max-width: 900px; margin: 10px auto 50px auto; font-size: 1.1rem;">
   L'appartamento <strong>Altrove</strong> si trova nel residence Topas, in una posizione tranquilla con vista aperta sulle montagne, a pochi minuti a piedi da tutto.
 </p>
