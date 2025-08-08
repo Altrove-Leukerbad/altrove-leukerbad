@@ -597,3 +597,45 @@ form textarea {
   .map-container iframe { height: auto; aspect-ratio: 4 / 3; }
 }
 
+/* --- Head centrata --- */
+.contact-head {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 24px;
+}
+.contact-head a { word-break: break-word; }
+
+/* --- Griglia: 2 colonne desktop, 1 colonna mobile --- */
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* mappa sx / form dx */
+  gap: 28px;
+  align-items: start;
+}
+.map-col, .form-col { min-width: 0; }
+
+/* --- Form full width --- */
+.form-col form label { display: block; margin: 10px 0 6px; }
+.form-col form input,
+.form-col form select,
+.form-col form textarea,
+.form-col form button { width: 100%; max-width: 100%; display: block; }
+
+/* --- Mappa responsive --- */
+.map-container iframe {
+  width: 100%;
+  display: block;
+  border: 0;
+}
+@media (min-width: 901px) { .map-container iframe { height: 450px; } }
+@media (max-width: 900px) { .map-container iframe { height: auto; aspect-ratio: 4 / 3; } }
+
+/* --- Mobile: stack --- */
+@media (max-width: 900px) {
+  .contact-container { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* --- Sicurezza overflow --- */
+.contact-section { overflow-wrap: anywhere; }
