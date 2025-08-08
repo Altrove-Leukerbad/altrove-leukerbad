@@ -147,6 +147,23 @@
   </style>
 </head>
 <body>
+  <header class="site-header">
+  <a href="index.html" class="brand" aria-label="Vai alla home">ALTROVE</a>
+
+  <button class="hamburger" aria-expanded="false" aria-controls="site-menu" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="site-menu" class="site-menu" hidden>
+    <a href="appartamento.html">Appartamento</a>
+    <a href="vicino-a.html">Vicino a</a>
+    <a href="sport.html">Sport</a>
+    <a href="guest-card.html">Guest Card</a>
+    <a href="prenotazioni.html">Prenotazioni</a>
+    <a href="contatti-e-richiedi-un-offerta.html">Contatti</a>
+  </nav>
+</header>
+
   <header>Appartamento</header>
  <main class="container">
   <!-- COLONNA SINISTRA -->
@@ -295,5 +312,50 @@
 // }, 5000);
 
   </script>
+  <script>
+  (function () {
+    const btn = document.querySelector('.hamburger');
+    const menu = document.getElementById('site-menu');
+    if (!btn || !menu) return;
+
+    let overlay;
+
+    function openMenu() {
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      menu.hidden = false;
+
+      // crea overlay per chiudere cliccando fuori
+      overlay = document.createElement('div');
+      overlay.className = 'menu-overlay';
+      overlay.addEventListener('click', closeMenu);
+      document.body.appendChild(overlay);
+
+      // evita scroll del body quando il menu è aperto su mobile
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      menu.hidden = true;
+      if (overlay) { overlay.remove(); overlay = null; }
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.contains('is-open');
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    // Chiudi con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
+    });
+  })();
+</script>
+
 </body>
 </html>
