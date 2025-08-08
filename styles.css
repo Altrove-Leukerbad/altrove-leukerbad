@@ -557,3 +557,43 @@ form textarea {
 .info-img:hover {
   transform: scale(1.05);
 }
+
+/* --- Fix mappa responsive --- */
+.map-container iframe {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Contatti: layout 2 colonne desktop, 1 colonna mobile --- */
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* due colonne su desktop */
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;   /* una colonna su mobile/tablet */
+    gap: 18px;
+  }
+}
+
+/* Mappa: altezza comoda su desktop, fluida su mobile */
+.map-container iframe {
+  width: 100%;
+  display: block;
+  border: 0;
+}
+
+@media (min-width: 901px) {
+  .map-container iframe { height: 450px; }
+}
+
+@media (max-width: 900px) {
+  .map-container iframe { height: auto; aspect-ratio: 4 / 3; }
+}
+
