@@ -639,3 +639,50 @@ form textarea {
 
 /* --- Sicurezza overflow --- */
 .contact-section { overflow-wrap: anywhere; }
+
+/* --- Header + hamburger --- */
+.site-header {
+  position: sticky; top: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: #fff; border-bottom: 1px solid #eee;
+}
+.site-header .brand {
+  font-weight: 800; letter-spacing: .5px; text-decoration: none; color: #000;
+}
+
+/* Bottone hamburger (tre linee) */
+.hamburger {
+  width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer;
+}
+.hamburger span {
+  display: block; width: 20px; height: 2px; margin: 3px 0;
+  background: #000; transition: transform .25s ease, opacity .2s ease, width .2s ease;
+}
+/* stato attivo (X) */
+.hamburger.is-open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+/* Menu a tendina */
+.site-menu {
+  position: absolute; right: 16px; top: calc(100% + 8px);
+  display: flex; flex-direction: column; gap: 8px;
+  background: #fff; padding: 12px; border: 1px solid #eee; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  min-width: 220px;
+}
+.site-menu a {
+  text-decoration: none; color: #111; padding: 10px 12px; border-radius: 8px;
+}
+.site-menu a:hover { background: #f5f5f5; }
+
+/* Overlay per clic fuori */
+.menu-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.0); /* invisibile, serve per click esterno */
+}
+
+/* Desktop: se vuoi puoi mostrare sempre l'hamburger (come richiesto) */
+@media (min-width: 900px) {
+  .site-header { padding: 12px 24px; }
+}
