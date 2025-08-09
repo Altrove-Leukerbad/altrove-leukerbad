@@ -320,3 +320,37 @@ header.site-header .site-menu { z-index: 1001 !important; }
 /* Per test: togli il commento per forzare la visibilità
 .btn-install{ display:inline-flex !important; }
 */
+/* === HEADER FISSO & MENU SEMPRE CLICCABILE (override) === */
+header.site-header{
+  position:fixed;           /* da sticky -> fixed */
+  top:0; left:0; right:0;
+  z-index:2000;
+  display:flex; align-items:center; justify-content:flex-end;
+  padding:10px 16px; background:#fff; border-bottom:1px solid #eee;
+}
+
+/* Spingi giù il primo blocco dopo l'header (senza toccare la home che non ha header) */
+.site-header + .page-title { margin-top:60px; }
+.site-header + header      { margin-top:60px; } /* es. "Cosa fare a Leukerbad" */
+.site-header + main        { margin-top:60px; } /* se parte subito il main */
+
+/* Menu: fisso sotto l’header */
+header.site-header .site-menu{
+  position:fixed;           /* da absolute -> fixed */
+  right:16px; top:60px;     /* subito sotto l'header */
+  z-index:2001;
+  display:flex; flex-direction:column; gap:8px;
+  background:#fff; padding:12px; border:1px solid #eee; border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08); min-width:220px;
+}
+
+/* Overlay: sotto al menu, sopra al contenuto, NON tocca l’header */
+.menu-overlay{
+  position:fixed;
+  inset:60px 0 0 0;         /* parte sotto l’header */
+  z-index:1900;             /* < menu(2001) e header(2000) */
+  background:transparent;
+}
+
+/* (facoltativo) assicura click facile sulle voci */
+header.site-header .site-menu a{ pointer-events:auto; }
