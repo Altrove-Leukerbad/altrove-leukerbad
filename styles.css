@@ -37,7 +37,7 @@ img, iframe { max-width: 100%; height: auto; display: block; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Bottone "Installa app" (hero) */
+/* Bottone "Installa app" */
 .btn-install{
   position:absolute; top:16px; left:16px;
   padding:10px 18px; font-size:14px; font-weight:700;
@@ -50,10 +50,26 @@ img, iframe { max-width: 100%; height: auto; display: block; }
 /* =========================
    SEZIONE "SCOPRI" / CARDS
 ========================= */
+#scopri {
+  background-image: url('img/tuafoto.jpg'); /* aggiorna con la tua */
+  background-size: cover; /* 🔹 evita bande bianche */
+  background-position: center; /* 🔹 centrata sempre */
+  background-repeat: no-repeat;
+  padding: 80px 20px;
+  color: white;
+}
+
+/* 🔹 Rimosso gradiente bianco che causava il bordo visibile */
+#scopri::after {
+  display: none !important;
+}
+
 .scopri-section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
 .section-title { font-size: 2.2rem; margin-bottom: 40px; color: #000; }
 
-.card-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+.card-grid {
+  display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;
+}
 .card {
   background:#f9f9f9; border-radius: 12px; padding: 20px; width: 260px;
   box-shadow: 0 3px 8px rgba(0,0,0,.1); transition: box-shadow .3s, transform .3s;
@@ -63,7 +79,6 @@ img, iframe { max-width: 100%; height: auto; display: block; }
 .card p  { font-size: 1rem; color: #555; }
 .top-link { display:inline-block; margin-top:40px; color:#333; text-decoration: underline; }
 
-/* Mobile: centra con forza */
 @media (max-width: 768px) {
   .scopri-section .card-grid { justify-content: center !important; align-items: center !important; }
   .scopri-section .card { margin-left:auto !important; margin-right:auto !important; width:260px; max-width:90vw; }
@@ -78,10 +93,10 @@ img, iframe { max-width: 100%; height: auto; display: block; }
 }
 
 /* =========================
-   HEADER FISSO + MENU HAMBURGER
+   HEADER + MENU HAMBURGER
 ========================= */
 header.site-header{
-  position:fixed; top:0; left:0; right:0; z-index:3000;
+  position:fixed; top:0; left:0; right:0; z-index:3000 !important;
   display:flex; align-items:center; justify-content:flex-end;
   padding:10px 16px; background:#fff; border-bottom:1px solid #eee;
 }
@@ -99,12 +114,11 @@ header.site-header .brand { display: none !important; }
 .hamburger.is-open span:nth-child(2){ opacity:0; }
 .hamburger.is-open span:nth-child(3){ transform: translateY(-5px) rotate(-45deg); }
 
-/* Menu: fisso sotto l’header, scrollabile se lungo */
 header.site-header .site-menu{
-  position:fixed; right:16px; top:60px; z-index:3001;
+  position:fixed; right:16px; top:60px; z-index:3001 !important;
   display:flex; flex-direction:column; gap:8px;
   background:#fff; padding:12px; border:1px solid #eee; border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,.12); min-width:220px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08); min-width:220px;
   max-height:calc(100vh - 80px); overflow-y:auto;
   -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
 }
@@ -115,154 +129,13 @@ header.site-header .site-menu{
 .site-menu a:last-child{ border-bottom:none; }
 .site-menu a:hover{ background:#f0f0f0; }
 
-/* Overlay: non copre l’header */
 .menu-overlay{
-  position:fixed; inset:60px 0 0 0; z-index:2500; background:transparent;
+  position:fixed; inset:60px 0 0 0; z-index:1900; background:transparent;
 }
 
-/* Spingi giù il primo blocco sotto l’header (pagine interne) */
 .site-header + .page-title,
 .site-header + header,
 .site-header + main { margin-top:60px; }
-
-/* =========================
-   PAGINA APPARTAMENTO
-========================= */
-.container {
-  display:flex; max-width:1000px; margin:30px auto; gap:40px; padding:0 20px;
-}
-
-/* Colonna sinistra (carosello + box): se usi .left-col, gestiamo qui */
-.left-col{
-  flex:1;
-  display:flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap:20px;
-}
-
-/* Carosello */
-.carousel{
-  flex:1 0 auto; position:relative; max-width:480px; aspect-ratio:4/3;
-  overflow:hidden; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,.15);
-}
-.carousel img{
-  width:100%; height:100%; object-fit:contain; background:#f5f5f5;
-  display:none; border-radius:10px; user-select:none;
-}
-.carousel img.active{ display:block; }
-.carousel button{
-  position:absolute; top:50%; transform:translateY(-50%);
-  background:rgba(0,0,0,.3); border:0; color:#fff; font-size:2rem;
-  padding:0 12px; cursor:pointer; border-radius:4px; user-select:none;
-}
-.carousel button:hover{ background:rgba(0,0,0,.6); }
-.prev{ left:10px; } .next{ right:10px; }
-
-/* Descrizione (colonna destra) */
-.description{
-  flex:1.2; font-size:1.1rem; color:#222; line-height:1.5; text-align:justify;
-}
-.description h2{ margin:0 0 15px 0; font-size:2rem; font-weight:700; }
-
-/* Box scrollabile Servizi */
-.info-box-scrollable{
-  width:100%;
-  max-width: 480px;
-  background:#f9f9f9;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,.1);
-  display:flex;
-  flex-direction:column;
-  max-height: 500px;              /* desktop */
-}
-.info-box-scrollable h3{
-  font-size:1.4rem; margin:0; padding:16px 20px;
-  border-bottom:1px solid #ddd; background:#eee; border-radius:12px 12px 0 0;
-}
-.scrollable-content{
-  padding:20px; overflow-y:auto; -webkit-overflow-scrolling: touch;
-}
-
-/* Responsive Appartamento */
-@media (max-width: 768px) {
-  .container{ flex-direction:column; }
-  .carousel, .description{ max-width:100%; }
-  .carousel{ aspect-ratio:auto; height:300px; }
-  .info-box-scrollable{ max-width:100%; max-height: 360px; } /* mobile */
-}
-
-/* =========================
-   PAGINA CONTATTI
-========================= */
-.contact-section { padding: 50px 20px; background:#f7f7f7; color:#333; }
-.contact-section, .contact-container { overflow-wrap: anywhere; }
-.contact-head { text-align:center; max-width:900px; margin:0 auto 24px; }
-.contact-head a { word-break: break-word; }
-
-.contact-container{
-  max-width:1100px; margin:0 auto;
-  display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;
-}
-.map-col, .form-col{ min-width:0; }
-
-.form-col form label{
-  display:block; margin:10px 0 6px; text-align:left; font-weight:500;
-}
-.form-col form input,
-.form-col form select,
-.form-col form textarea,
-.form-col form button{
-  width:100%; max-width:100%; display:block;
-  padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1rem;
-}
-.form-col form textarea{ resize:vertical; min-height:120px; }
-.form-col form .consent{ margin-top:10px; font-size:.9rem; }
-.iti{ width:100%; }
-
-.map-container iframe{
-  width:100%; display:block; border:0; border-radius:8px;
-}
-@media (min-width: 901px){ .map-container iframe{ height:450px; } }
-@media (max-width: 900px){
-  .contact-container{ grid-template-columns:1fr; gap:18px; }
-  .map-container iframe{ height:auto; aspect-ratio:4/3; }
-}
-
-/* =========================
-   INFO LINKS (centrati)
-========================= */
-.info-links {
-  display: flex;
-  justify-content: center;     /* centra orizzontalmente */
-  align-items: center;         /* centra verticalmente se serve */
-  gap: 30px;
-  flex-wrap: wrap;
-  margin: 40px auto;
-  max-width: 1000px;
-  text-align: center;          /* centra eventuale testo */
-}
-.info-links a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;         /* centra immagine + testo */
-  text-decoration: none;
-}
-.info-img {
-  width: 300px; height: 200px; object-fit: contain; background: #fff;
-  border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,.15); transition: transform .3s ease;
-}
-.info-img:hover { transform: scale(1.05); }
-
-/* =========================
-   SEZIONI GENERICHE (Cosa fare)
-========================= */
-.sezione img { 
-  display:block; 
-  margin: 0 auto 15px;        /* centra le immagini sotto i titoli */
-  border-radius:10px;
-  box-shadow:0 0 12px rgba(0,0,0,0.15);
-}
 
 /* =========================
    FOOTER
