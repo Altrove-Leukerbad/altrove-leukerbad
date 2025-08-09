@@ -283,4 +283,15 @@ header.site-header .site-menu { z-index: 1001 !important; }
     max-width: 90vw;        /* così non sfora su telefoni piccoli */
   }
 }
+/* Scopri ALTROVE: centra i blocchi su mobile */
+@media (max-width: 768px) {
+  #scopri .key-points {
+    flex-direction: column;   /* già c'è a 600px, lo estendiamo a 768 */
+    align-items: center;      /* <- centra orizzontalmente gli elementi colonne */
+  }
+  #scopri .point {
+    width: min(420px, 90vw);  /* larghezza comoda su telefoni */
+    margin: 0 auto;           /* sicurezza extra per il centraggio */
+  }
+}
 
