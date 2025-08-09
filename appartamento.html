@@ -187,52 +187,78 @@
   </script>
 
   <!-- JS MENU HAMBURGER (uguale a "Cosa fare") -->
-  <script>
-    (function () {
-      const btn  = document.querySelector('.hamburger');
-      const menu = document.getElementById('site-menu');
-      if (!btn || !menu) return;
+ <!-- JS MENU HAMBURGER (posizionamento dinamico) -->
+<script>
+(function () {
+  const btn   = document.querySelector('.hamburger');
+  const menu  = document.getElementById('site-menu');
+  const header = document.querySelector('.site-header');
+  if (!btn || !menu || !header) return;
 
-      let overlay;
+  let overlay;
+  let isOpen = false;
 
-      function openMenu() {
-        btn.classList.add('is-open');
-        btn.setAttribute('aria-expanded', 'true');
-        menu.hidden = false;
+  function positionMenu() {
+    if (!isOpen) return;
+    const rect = header.getBoundingClientRect();
+    const top = Math.round(rect.bottom + 8); // 8px sotto l’header
+    menu.style.position = 'fixed';
+    menu.style.top = top + 'px';
+    menu.style.right = '16px';
+    menu.style.maxHeight = `calc(100vh - ${top + 16}px)`; // 16px di respiro sotto
+    menu.style.overflowY = 'auto';
+    menu.style.webkitOverflowScrolling = 'touch';
+    menu.style.display = 'flex';      // forza visibilità
+    menu.style.visibility = 'visible';
+  }
 
-        overlay = document.createElement('div');
-        overlay.className = 'menu-overlay';   // stile gestito da styles.css
-        overlay.addEventListener('click', closeMenu);
-        document.body.appendChild(overlay);
+  function openMenu() {
+    isOpen = true;
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
+    positionMenu();
 
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
-      }
+    overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    overlay.addEventListener('click', closeMenu);
+    document.body.appendChild(overlay);
 
-      function closeMenu() {
-        btn.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-        menu.hidden = true;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
 
-        if (overlay) { overlay.remove(); overlay = null; }
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-      }
+  function closeMenu() {
+    isOpen = false;
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
 
-      btn.addEventListener('click', () => {
-        const isOpen = btn.classList.contains('is-open');
-        isOpen ? closeMenu() : openMenu();
-      });
+    if (overlay) { overlay.remove(); overlay = null; }
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  }
 
-      menu.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') closeMenu();
-      });
+  btn.addEventListener('click', () => {
+    isOpen ? closeMenu() : openMenu();
+  });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
-      });
-    })();
-  </script>
+  // Ricalcola posizione quando scrolli o ridimensioni
+  window.addEventListener('scroll', positionMenu, { passive: true });
+  window.addEventListener('resize', positionMenu);
+
+  // Chiudi al click su un link del menu
+  menu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') closeMenu();
+  });
+
+  // ESC per chiudere
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeMenu();
+  });
+})();
+</script>
+
 
   <!-- Service Worker -->
   <script>
