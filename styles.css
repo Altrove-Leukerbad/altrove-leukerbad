@@ -257,3 +257,11 @@ header.site-header .site-menu { z-index: 1001 !important; }
 .site-menu a:hover {
   background: #f0f0f0;
 }
+
+/* Centrare i blocchi "Scopri Altrove" su mobile */
+@media (max-width: 768px) {
+  .card-grid {
+    justify-content: center;
+  }
+}
+
