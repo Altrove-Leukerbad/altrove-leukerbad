@@ -213,3 +213,22 @@ header.site-header { z-index: 1000; }
 header.site-header .site-menu { z-index: 1002; }   /* menu sopra tutto */
 .menu-overlay { z-index: 1001; background: transparent; } /* overlay sotto al menu */
 
+/* --- FIX DEFINITIVO: overlay sotto, menu sopra --- */
+header.site-header { position: sticky; top: 0; z-index: 1000; }
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 9998;              /* overlay più basso */
+}
+
+header.site-header .site-menu {
+  position: absolute;
+  right: 16px;
+  top: calc(100% + 8px);
+  z-index: 9999;              /* menu sopra all’overlay */
+  pointer-events: auto;
+}
+
+header.site-header .site-menu a { pointer-events: auto; }
