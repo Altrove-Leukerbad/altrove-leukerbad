@@ -238,3 +238,8 @@ header.site-header { z-index: 1000; }
 .menu-overlay { z-index: 9998; background: transparent; }
 header.site-header .site-menu { z-index: 9999; }
 
+/* === FIX CLICK MENU: overlay sotto, menu sopra === */
+header.site-header { position: sticky; top: 0; z-index: 1000 !important; }
+header.site-header .site-menu { z-index: 1001 !important; }
+.menu-overlay { z-index: 1 !important; background: transparent !important; }
+
