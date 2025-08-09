@@ -43,10 +43,11 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   const isPage = req.mode === "navigate";
+  const dest = req.destination; // "document" | "style" | "script" | "image" ...
 
   e.respondWith((async () => {
     if (isPage) {
-      // Network-first per HTML
+      // HTML: network-first
       try {
         const fresh = await fetch(req);
         const cache = await caches.open(CACHE);
@@ -56,22 +57,37 @@ self.addEventListener("fetch", (e) => {
         const cache = await caches.open(CACHE);
         return (await cache.match(req)) || (await cache.match("/index.html"));
       }
-    } else {
-      // Asset: cache-first con fallback a rete
-      const cache = await caches.open(CACHE);
-      const cached = await cache.match(req);
-      if (cached) return cached;
+    }
 
+    // CSS/JS: network-first (così non devi cambiare query string o CACHE)
+    if (dest === "style" || dest === "script" || dest === "worker") {
       try {
-        const fresh = await fetch(req);
-        if (req.method === "GET") cache.put(req, fresh.clone());
+        const fresh = await fetch(req, { cache: "no-cache" });
+        const cache = await caches.open(CACHE);
+        cache.put(req, fresh.clone());
         return fresh;
       } catch {
+        const cache = await caches.open(CACHE);
+        const cached = await cache.match(req);
         return cached || Response.error();
       }
     }
+
+    // Immagini e altri asset: cache-first
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(req);
+    if (cached) return cached;
+
+    try {
+      const fresh = await fetch(req);
+      if (req.method === "GET") cache.put(req, fresh.clone());
+      return fresh;
+    } catch {
+      return cached || Response.error();
+    }
   })());
 });
+
 
 // Permette alla pagina di forzare l’attivazione del nuovo SW
 self.addEventListener("message", (event) => {
