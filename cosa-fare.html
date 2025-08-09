@@ -181,60 +181,47 @@ header.site-header{
       Torna alla Home
     </a>
   </div>
-  <script>
-  (function () {
-    const btn = document.querySelector('.hamburger');
-    const menu = document.getElementById('site-menu');
-    if (!btn || !menu) return;
+ <script>
+(() => {
+  const btn  = document.querySelector('.hamburger');
+  const menu = document.getElementById('site-menu');
+  if (!btn || !menu) return;
 
-    let overlay;
+  let overlay = null;
 
-    function openMenu() {
-      btn.classList.add('is-open');
-      btn.setAttribute('aria-expanded', 'true');
-      menu.hidden = false;
+  function openMenu() {
+    btn.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
 
-      overlay = document.createElement('div');
-      overlay.className = 'menu-overlay';
-      overlay.addEventListener('click', closeMenu);
-      document.body.appendChild(overlay);
+    overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    overlay.addEventListener('click', closeMenu);
+    document.body.appendChild(overlay);
+  }
 
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    }
+  function closeMenu() {
+    btn.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+    if (overlay) { overlay.remove(); overlay = null; }
+  }
 
-    function closeMenu() {
-      btn.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      menu.hidden = true;
-      if (overlay) { overlay.remove(); overlay = null; }
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    }
-
-    btn.addEventListener('click', () => {
-      const isOpen = btn.classList.contains('is-open');
-      isOpen ? closeMenu() : openMenu();
-    });
-
-    // Chiudi al click su un link del menu
-    menu.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') closeMenu();
-    });
-
-    // Chiudi con ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
-    });
-  })();
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js");
+  btn.addEventListener('click', () => {
+    const isOpen = btn.classList.contains('is-open');
+    isOpen ? closeMenu() : openMenu();
   });
-}
+
+  menu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
+  });
+})();
 </script>
+
 
 </body>
 </html>
