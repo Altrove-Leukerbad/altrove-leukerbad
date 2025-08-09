@@ -3,6 +3,7 @@
 <head>
   <meta name="google-site-verification" content="vBWYQxZbNCY57TJ7fTBFgG2gG6jN2hNkwyQbxAoV-14" />
   <meta charset="UTF-8" />
+
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
@@ -16,6 +17,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ALTROVE Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Colori PWA -->
   <meta name="theme-color" content="#000000">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +33,7 @@
     .hero {
       height: 100vh; background-color: white;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 20px; gap: 20px; text-align: center; position: relative;
+      padding: 20px; gap: 20px; text-align: center; position: relative; /* relativo per posizionare il bottone */
     }
     .hero-logo { max-width: 80vw; max-height: 60vh; height: auto; }
     .subtitle { font-size: 1.6rem; color: #444; margin: 0; }
@@ -40,7 +43,7 @@
     }
     .btn:hover { background-color: #555; }
 
-    /* Bottone install app: uguale stile ma più piccolo + posizione alto-sx */
+    /* Bottone install app: più piccolo, in alto a sinistra dentro .hero */
     .btn-install {
       position: absolute; top: 16px; left: 16px;
       padding: 10px 18px; font-size: 14px; font-weight: 700;
@@ -74,7 +77,7 @@
       text-decoration: none; display: flex; align-items: center; justify-content: center;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
-    .point:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.2); transform: translateY(-5px); }
+    .point:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); transform: translateY(-5px); }
     .home-btn { margin-top: 30px; }
 
     @media (max-width: 600px) {
@@ -88,12 +91,9 @@
 </head>
 <body>
 
-  <!-- Bottone "Scarica l’app" (mostrato solo quando installabile) -->
-  <a href="#" id="installAppBtn" class="btn-install">📲 Scarica l’app</a>
-
   <section class="hero" id="top">
-    <!-- Bottone Installa app (Android/desktop) -->
-<button id="btnInstall" class="btn-install" hidden>Installa app</button>
+    <!-- Bottone “Scarica l’app” (si vede solo quando l’app è installabile) -->
+    <a href="#" id="installAppBtn" class="btn-install">📲 Scarica l’app</a>
 
     <img src="logo.png" alt="Logo Altrove" class="hero-logo" />
     <h2 class="subtitle">Cosy Lodge nel cuore di Leukerbad</h2>
@@ -120,7 +120,7 @@
     </div>
   </section>
 
-  <!-- SW register -->
+  <!-- Service Worker -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -139,8 +139,9 @@
       const isInStandalone =
         window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-      // Android/Chrome: mostra il bottone quando l'app è installabile
+      // Mostra il bottone quando l’app è installabile (Android/Chrome/desktop)
       window.addEventListener('beforeinstallprompt', (e) => {
+        // console.log('beforeinstallprompt fired'); // utile per debug
         e.preventDefault();
         deferredPrompt = e;
         if (!isIOS && !isInStandalone) {
@@ -148,7 +149,7 @@
         }
       });
 
-      // Click: apri il prompt
+      // Click: apri il prompt nativo (o istruzioni iOS)
       btn.addEventListener('click', async (e) => {
         e.preventDefault();
         if (isIOS && !isInStandalone) {
@@ -164,39 +165,14 @@
           btn.style.display = 'none';
         }
       });
+
+      // Se l’app viene installata, nascondi il bottone
+      window.addEventListener('appinstalled', () => {
+        deferredPrompt = null;
+        btn.style.display = 'none';
+      });
     })();
   </script>
-  <script>
-  (() => {
-    let deferredPrompt;
-    const btn = document.getElementById('btnInstall');
-
-    // Mostra il bottone solo quando l'app è installabile
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      btn.hidden = false;   // mostra il bottone
-    });
-
-    // Clic sul bottone -> mostra prompt nativo
-    btn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      btn.disabled = true;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      btn.hidden = true;    // nasconde dopo la scelta
-      btn.disabled = false;
-      // se vuoi, qui puoi mostrare un toast "Installazione completata" ecc.
-    });
-
-    // Se l'app è già installata, assicura che il bottone sparisca
-    window.addEventListener('appinstalled', () => {
-      deferredPrompt = null;
-      btn.hidden = true;
-    });
-  })();
-</script>
 
 </body>
 </html>
