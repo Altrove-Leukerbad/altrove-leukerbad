@@ -186,6 +186,7 @@
 
         overlay = document.createElement('div');
         overlay.className = 'menu-overlay';
+        overlay.style.zIndex = '1';
         overlay.addEventListener('click', closeMenu);
         document.body.appendChild(overlay);
 
