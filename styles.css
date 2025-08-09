@@ -103,12 +103,29 @@ header.site-header .brand { display: none !important; } /* niente scritta ALTROV
 .hamburger.is-open span:nth-child(3){ transform: translateY(-5px) rotate(-45deg); }
 
 /* Menu sotto l’header, fissato */
+/* Menu hamburger: fisso, scrollabile se supera lo schermo */
 header.site-header .site-menu{
-  position:fixed; right:16px; top:60px; z-index:2001;
-  display:flex; flex-direction:column; gap:8px;
-  background:#fff; padding:12px; border:1px solid #eee; border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,.08); min-width:220px;
+  position: fixed;            /* resta ancorato allo schermo */
+  right: 16px;
+  top: 60px;                  /* subito sotto l’header (alto ~60px) */
+  z-index: 2001;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  min-width: 220px;
+
+  /* 👇 la parte importante per il tuo problema */
+  max-height: calc(100vh - 80px); /* margine di respiro sotto l’header */
+  overflow-y: auto;               /* il menu scorre al suo interno */
+  -webkit-overflow-scrolling: touch; /* scroll fluido su iOS */
+  overscroll-behavior: contain;   /* evita rimbalzi sotto */
 }
+
 .site-menu a{
   display:block; padding:12px 20px; font-size:16px; color:#000;
   text-decoration:none; border-bottom:1px solid #eee; transition: background .3s;
