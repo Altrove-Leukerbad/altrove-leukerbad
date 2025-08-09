@@ -32,6 +32,16 @@ img, iframe { max-width: 100%; height: auto; display: block; }
 .subtitle  { font-size: 1.6rem; color: #333; margin: 0; opacity: 0; animation: fadeInUp 1s .8s forwards; }
 .hero .btn { opacity: 0; animation: fadeInUp 1s 1.3s forwards; }
 
+/* Sezione SCOPRI - sfondo corretto e senza bianco */
+#scopri {
+  background: url("img/Esterno3.jpg") center center / cover no-repeat;
+  padding: 60px 20px;
+}
+#scopri::before,
+#scopri::after {
+  display: none !important; /* rimuove overlay bianco */
+}
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -50,20 +60,6 @@ img, iframe { max-width: 100%; height: auto; display: block; }
 /* =========================
    SEZIONE "SCOPRI" / CARDS
 ========================= */
-#scopri {
-  background-image: url('img/tuafoto.jpg'); /* aggiorna con la tua */
-  background-size: cover; /* 🔹 evita bande bianche */
-  background-position: center; /* 🔹 centrata sempre */
-  background-repeat: no-repeat;
-  padding: 80px 20px;
-  color: white;
-}
-
-/* 🔹 Rimosso gradiente bianco che causava il bordo visibile */
-#scopri::after {
-  display: none !important;
-}
-
 .scopri-section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
 .section-title { font-size: 2.2rem; margin-bottom: 40px; color: #000; }
 
@@ -136,6 +132,86 @@ header.site-header .site-menu{
 .site-header + .page-title,
 .site-header + header,
 .site-header + main { margin-top:60px; }
+
+/* =========================
+   PAGINA APPARTAMENTO
+========================= */
+.container {
+  display:flex; max-width:1000px; margin:30px auto; gap:40px; padding:0 20px;
+}
+.carousel{
+  flex:1; position:relative; max-width:480px; aspect-ratio:4/3;
+  overflow:hidden; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,.15);
+}
+.carousel img{
+  width:100%; height:100%; object-fit:contain; background:#f5f5f5;
+  display:none; border-radius:10px; user-select:none;
+}
+.carousel img.active{ display:block; }
+.carousel button{
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,.3); border:0; color:#fff; font-size:2rem;
+  padding:0 12px; cursor:pointer; border-radius:4px; user-select:none;
+}
+.carousel button:hover{ background:rgba(0,0,0,.6); }
+.prev{ left:10px; } .next{ right:10px; }
+
+.description{
+  flex:1.2; font-size:1.1rem; color:#222; line-height:1.5; text-align:justify;
+}
+.description h2{ margin:0 0 15px 0; font-size:2rem; font-weight:700; }
+
+/* =========================
+   PAGINA CONTATTI
+========================= */
+.contact-section { padding: 50px 20px; background:#f7f7f7; color:#333; }
+.contact-section, .contact-container { overflow-wrap: anywhere; }
+
+.contact-head { text-align:center; max-width:900px; margin:0 auto 24px; }
+.contact-head a { word-break: break-word; }
+
+.contact-container{
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;
+}
+.map-col, .form-col{ min-width:0; }
+
+.form-col form label{
+  display:block; margin:10px 0 6px; text-align:left; font-weight:500;
+}
+.form-col form input,
+.form-col form select,
+.form-col form textarea,
+.form-col form button{
+  width:100%; max-width:100%; display:block;
+  padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1rem;
+}
+.form-col form textarea{ resize:vertical; min-height:120px; }
+.form-col form .consent{ margin-top:10px; font-size:.9rem; }
+.iti{ width:100%; }
+
+.map-container iframe{
+  width:100%; display:block; border:0; border-radius:8px;
+}
+@media (min-width: 901px){ .map-container iframe{ height:450px; } }
+@media (max-width: 900px){
+  .contact-container{ grid-template-columns:1fr; gap:18px; }
+  .map-container iframe{ height:auto; aspect-ratio:4/3; }
+}
+
+/* =========================
+   INFO LINKS
+========================= */
+.info-links{
+  display:flex; justify-content:center; gap:30px; flex-wrap:wrap;
+  margin:40px auto; max-width:1000px;
+}
+.info-links a{ display:block; }
+.info-img{
+  width:300px; height:200px; object-fit:contain; background:#fff;
+  border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,.15); transition: transform .3s ease;
+}
+.info-img:hover{ transform: scale(1.05); }
 
 /* =========================
    FOOTER
