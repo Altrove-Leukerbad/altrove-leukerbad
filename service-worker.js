@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE = "altrove-v3"; // bumpa questo quando cambi file
+const CACHE = "altrove-v4";
 const ASSETS = [
   // Pagine
   "/",
