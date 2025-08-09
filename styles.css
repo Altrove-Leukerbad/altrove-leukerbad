@@ -220,3 +220,16 @@ header.site-header .site-menu{
   padding:6px 16px; border-radius:6px; transition: background-color .3s;
 }
 .footer-link:hover{ background:#666; }
+/* Header e menu sempre sopra all’overlay */
+header.site-header { 
+  z-index: 3000 !important; 
+}
+header.site-header .site-menu { 
+  z-index: 3001 !important; 
+}
+
+/* Overlay trasparente */
+.menu-overlay {
+  background: transparent;
+}
+
