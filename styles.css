@@ -295,3 +295,28 @@ header.site-header .site-menu { z-index: 1001 !important; }
   }
 }
 
+/* Bottone "Installa app" (in alto a sinistra sulla hero) */
+.btn-install{
+  position:absolute;
+  top:16px;
+  left:16px;
+  padding:10px 18px;
+  font-size:14px;
+  font-weight:700;
+  background-color:#4CAF50;
+  color:#fff;
+  border:0;
+  border-radius:30px;
+  text-decoration:none;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  z-index:10;
+}
+.btn-install:hover{ background-color:#449c49; }
+
+/* Per test: togli il commento per forzare la visibilità
+.btn-install{ display:inline-flex !important; }
+*/
