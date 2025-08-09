@@ -66,7 +66,9 @@ self.addEventListener("fetch", (e) => {
       }
     })()
   );
-  // Permette alla pagina di chiedere allo SW di attivarsi subito
+});
+
+// Permette alla pagina di chiedere allo SW di attivarsi subito
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
