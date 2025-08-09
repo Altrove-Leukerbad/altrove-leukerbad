@@ -166,5 +166,37 @@
       });
     })();
   </script>
+  <script>
+  (() => {
+    let deferredPrompt;
+    const btn = document.getElementById('btnInstall');
+
+    // Mostra il bottone solo quando l'app è installabile
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      btn.hidden = false;   // mostra il bottone
+    });
+
+    // Clic sul bottone -> mostra prompt nativo
+    btn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      btn.disabled = true;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      btn.hidden = true;    // nasconde dopo la scelta
+      btn.disabled = false;
+      // se vuoi, qui puoi mostrare un toast "Installazione completata" ecc.
+    });
+
+    // Se l'app è già installata, assicura che il bottone sparisca
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      btn.hidden = true;
+    });
+  })();
+</script>
+
 </body>
 </html>
