@@ -270,3 +270,17 @@ header.site-header .site-menu { z-index: 1001 !important; }
 
 }
 
+/* Centra le card su mobile in modo “forte” */
+@media (max-width: 768px) {
+  .scopri-section .card-grid {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .scopri-section .card {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 260px;           /* la tua larghezza */
+    max-width: 90vw;        /* così non sfora su telefoni piccoli */
+  }
+}
+
