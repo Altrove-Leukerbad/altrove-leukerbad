@@ -207,3 +207,9 @@ header.site-header .site-menu a:hover { background: #f5f5f5; }
   padding: 6px 16px; border-radius: 6px; transition: background-color .3s;
 }
 .footer-link:hover { background: #666; }
+
+/* --- Fix priorità livelli menu vs overlay --- */
+header.site-header { z-index: 1000; }
+header.site-header .site-menu { z-index: 1002; }   /* menu sopra tutto */
+.menu-overlay { z-index: 1001; background: transparent; } /* overlay sotto al menu */
+
