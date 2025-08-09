@@ -243,3 +243,17 @@ header.site-header { position: sticky; top: 0; z-index: 1000 !important; }
 header.site-header .site-menu { z-index: 1001 !important; }
 .menu-overlay { z-index: 1 !important; background: transparent !important; }
 
+/* Stile voci menu hamburger */
+.site-menu a {
+  display: block;
+  padding: 12px 20px;
+  font-size: 16px; /* ← stessa misura di appartamento */
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+  transition: background 0.3s ease;
+}
+
+.site-menu a:hover {
+  background: #f0f0f0;
+}
