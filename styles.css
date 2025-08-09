@@ -232,3 +232,9 @@ header.site-header .site-menu {
 }
 
 header.site-header .site-menu a { pointer-events: auto; }
+
+/* --- Menu sopra, overlay sotto --- */
+header.site-header { z-index: 1000; }
+.menu-overlay { z-index: 9998; background: transparent; }
+header.site-header .site-menu { z-index: 9999; }
+
