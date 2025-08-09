@@ -123,13 +123,38 @@
   </section>
 
   <!-- Service Worker -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/service-worker.js");
-      });
+ <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    const reg = await navigator.serviceWorker.register("/service-worker.js");
+
+    // Se c'è un SW in attesa, chiedi di attivarsi subito e ricarica quando pronto
+    if (reg.waiting) {
+      reg.waiting.postMessage({ type: "SKIP_WAITING" });
     }
-  </script>
+
+    // Nuovo SW trovato -> quando diventa "installed", chiedi skipWaiting
+    reg.addEventListener("updatefound", () => {
+      const newWorker = reg.installing;
+      if (!newWorker) return;
+      newWorker.addEventListener("statechange", () => {
+        if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          newWorker.postMessage({ type: "SKIP_WAITING" });
+        }
+      });
+    });
+
+    // Quando il controller cambia (nuovo SW attivo), ricarica una volta
+    let refreshed = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (refreshed) return;
+      refreshed = true;
+      window.location.reload();
+    });
+  });
+}
+</script>
+
 
   <!-- Install prompt -->
   <script>
