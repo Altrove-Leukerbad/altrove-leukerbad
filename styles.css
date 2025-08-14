@@ -255,36 +255,3 @@ main .sezione img {
   padding: 6px 16px; border-radius: 6px; transition: background-color .3s;
 }
 .footer-link:hover{ background: #666; }
-
-/* Quando l'URL ha #scopri, spingi la sezione su di un viewport
-   così la hero esce totalmente dal viewport */
-#scopri:target::before {
-  content: "";
-  display: block;
-  height: 100vh;
-  margin-top: -100vh;
-}
-
-/* Sui device moderni gestisce meglio le barre (Android/iOS) */
-@supports (height: 100svh) {
-  #scopri:target::before {
-    height: 100svh;
-    margin-top: -100svh;
-  }
-}
-
-/* Niente offset extra, niente banda/gradiente in alto quando targeted */
-#scopri:target {
-  scroll-margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-#scopri:target::after {
-  display: none !important; /* elimina la striscia bianca/gradiente */
-}
-
-/* In modalità targeted, assicurati che l'immagine copra tutto */
-#scopri:target {
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat;
-}
