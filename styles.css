@@ -255,34 +255,3 @@ main .sezione img {
   padding: 6px 16px; border-radius: 6px; transition: background-color .3s;
 }
 .footer-link:hover{ background: #666; }
-
-/* 1) Nascondi la hero se siamo all'anchor #scopri */
-body:has(#scopri:target) .hero {
-  display: none !important;
-}
-
-/* 2) Evita "strisce bianche" sopra: nessun margine/padding che crei gap */
-#scopri {
-  margin: 0 !important;
-  padding: 0;
-  scroll-margin-top: 0;
-}
-
-/* 3) Se #scopri ha l'immagine di TOPAS come background, rendila full-bleed */
-#scopri,
-#scopri .topas-hero {
-  min-height: 100vh;
-  height: 100dvh;           /* migliore su mobile per notch/barre */
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* 4) Assicurati che html/body non introducano bande */
-html, body {
-  background: #000;         /* o un colore vicino all'immagine per sicurezza */
-  margin: 0;
-  padding: 0;
-  overscroll-behavior: none;
-}
-
