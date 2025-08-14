@@ -199,6 +199,31 @@ if ("serviceWorker" in navigator) {
       });
     })();
   </script>
+<script>
+  (function () {
+    function applySkipHero() {
+      // modalità attiva solo se l'URL è /#scopri
+      if (location.hash === '#scopri') {
+        document.documentElement.classList.add('skip-hero');
+      } else {
+        document.documentElement.classList.remove('skip-hero');
+      }
+    }
+
+    // all’avvio e quando cambia l’anchor
+    window.addEventListener('DOMContentLoaded', applySkipHero);
+    window.addEventListener('hashchange', applySkipHero);
+
+    // opzionale: se vuoi che un clic interno al bottone lavori anche senza reload
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest('a[href="#scopri"]');
+      if (a) {
+        // assicura l’applicazione immediata
+        requestAnimationFrame(applySkipHero);
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
