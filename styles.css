@@ -255,3 +255,16 @@ main .sezione img {
   padding: 6px 16px; border-radius: 6px; transition: background-color .3s;
 }
 .footer-link:hover{ background: #666; }
+
+#scopri h2 {
+  margin-top: 50px; /* aumenta spazio sopra il titolo */
+  margin-bottom: 30px; /* spazio sotto il titolo */
+}
+
+#scopri p {
+  margin-bottom: 80px; /* spazio sotto il testo */
+}
+
+#scopri .key-points {
+  margin-top: 50px; /* spazio tra testo e bottoni */
+}
