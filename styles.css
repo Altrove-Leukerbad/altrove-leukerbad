@@ -256,37 +256,3 @@ main .sezione img {
 }
 .footer-link:hover{ background: #666; }
 
-/* —— Modalità “solo TOPAS” quando c'è #scopri nell'URL —— */
-.skip-hero .hero {
-  display: none !important;
-}
-
-.skip-hero #scopri {
-  /* niente offset, niente padding che crea bande */
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0;
-  scroll-margin-top: 0 !important;
-
-  /* full-bleed */
-  min-height: 100vh;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat;
-}
-
-/* elimina la sfumatura bianca superiore in modalità #scopri */
-.skip-hero #scopri::after { 
-  display: none !important; 
-}
-
-/* overlay scuro OK; se vuoi meno scuro, riduci l'alpha */
-.skip-hero #scopri::before {
-  background: rgba(0,0,0,0.25);
-}
-
-/* migliore gestione altezze su mobile moderni */
-@supports (height: 100svh) {
-  .skip-hero #scopri { height: 100svh; }
-}
-
