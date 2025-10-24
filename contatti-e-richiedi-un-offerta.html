@@ -6,206 +6,188 @@
   <title>Contatti – Altrove Leukerbad</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="img/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
   <link rel="manifest" href="/manifest.webmanifest">
-<meta name="theme-color" content="#000000">
-<link rel="apple-touch-icon" href="/icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
+  <!-- HEADER -->
   <header class="site-header">
-  <a href="/" class="brand" aria-label="Vai alla home">ALTROVE</a>
+    <a href="/" class="brand" aria-label="Vai alla home">ALTROVE</a>
 
-  <button class="hamburger" aria-expanded="false" aria-controls="site-menu" aria-label="Apri menu">
-    <span></span><span></span><span></span>
-  </button>
+    <button class="hamburger" aria-expanded="false" aria-controls="site-menu" aria-label="Apri menu">
+      <span></span><span></span><span></span>
+    </button>
 
-  <nav id="site-menu" class="site-menu" hidden>
-    <a href="index.html#scopri" style="font-weight: bold; color: #c00;">Scopri ALTROVE</a>
-    <a href="appartamento.html">Appartamento</a>
-    <a href="cosa-fare.html">Cosa fare</a>
-    <a href="info-e-guest-card.html">Info e Guest Card</a>
-    <a href="contatti-e-richiedi-un-offerta.html">Contatti e Richiedi un'offerta</a>
-  </nav>
-</header>
+    <nav id="site-menu" class="site-menu" hidden>
+      <a href="index.html#scopri" style="font-weight: bold; color: #c00;">Scopri ALTROVE</a>
+      <a href="appartamento.html">Appartamento</a>
+      <a href="cosa-fare.html">Cosa fare</a>
+      <a href="info-e-guest-card.html">Info e Guest Card</a>
+      <a href="contatti-e-richiedi-un-offerta.html" aria-current="page">Contatti</a>
+    </nav>
+  </header>
 
- <section class="contact-section">
-  <!-- Testata centrata -->
-  <div class="contact-head">
-    <h2>Contatti e Richiedi un'offerta</h2>
-    <p><strong>Indirizzo:</strong><br>Zur G. 91<br>3954 Leukerbad</p>
-    <p><strong>Per info e richiedere un'offerta compila il modulo oppure scrivici:</strong><br>
-      <a href="mailto:altrove.leukerbad@gmail.com">altrove.leukerbad@gmail.com</a><br>
-      <a href="https://wa.me/41765872011" target="_blank">+41 76 274 37 07</a>
-    </p>
-  </div>
+  <!-- CONTATTI: testata -->
+  <section class="contact-section">
+    <div class="contact-head">
+      <h2>Contatti</h2>
+      <p><strong>Indirizzo:</strong><br>Zur Gasse 91<br>3954 Leukerbad</p>
+      <p><strong>Per informazioni:</strong><br>
+        <a href="mailto:altrove.leukerbad@gmail.com">altrove.leukerbad@gmail.com</a><br>
+        <a href="https://wa.me/41762743707" target="_blank" rel="noopener">+41 76 274 37 07</a>
+      </p>
+    </div>
 
-  <!-- Griglia: mappa a sinistra, form a destra -->
-  <div class="contact-container">
-    <div class="map-col">
-      <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5505.121238269392!2d7.6216711459419155!3d46.378104834414195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f1bdcb1b9b9f1%3A0x132a9111f74a44eb!2sAltrove%20Leukerbad!5e0!3m2!1sit!2sch!4v1754570340534!5m2!1sit!2sch"
-                style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- Griglia: mappa a sinistra, CTA Booking a destra -->
+    <div class="contact-container">
+      <div class="map-col">
+        <div class="map-container">
+          <iframe title="Mappa Altrove Leukerbad" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5505.121238269392!2d7.6216711459419155!3d46.378104834414195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f1bdcb1b9b9f1%3A0x132a9111f74a44eb!2sAltrove%20Leukerbad!5e0!3m2!1sit!2sch!4v1754570340534!5m2!1sit!2sch"
+                  style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <div class="cta-col">
+        <div class="cta-card">
+          <h3>Prenota la tua vacanza</h3>
+          <p>Per prenotazioni usa direttamente Booking.com: veloce, sicuro e con calendario sempre aggiornato.</p>
+
+          <a class="booking-cta" href="https://www.booking.com/Share-R5lXZ7" target="_blank" rel="noopener noreferrer" aria-label="Apri la pagina Altrove Leukerbad su Booking.com">
+            <span class="logo" aria-hidden="true">
+              <!-- Logo Booking (SVG semplificato) -->
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                <rect x="0" y="0" width="200" height="200" rx="28" ry="28" fill="#003580"/>
+                <circle cx="140" cy="140" r="20" fill="#00A4FF"/>
+                <path d="M60 60h46c18 0 30 12 30 28s-12 28-30 28H60V60zm0 72h52c18 0 30 12 30 28s-12 28-30 28H60v-56z" fill="#fff"/>
+              </svg>
+            </span>
+            <span class="text">Prenota su <strong>Booking.com</strong></span>
+          </a>
+
+          <p class="tip">Suggerimento: aggiungi la pagina ai preferiti per controllare disponibilità e prezzi in un attimo.</p>
+          <div class="aux">
+            <a class="ghost" href="index.html" aria-label="Torna alla Home">← Torna alla Home</a>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="form-col">
-      <form id="contactForm" action="https://formspree.io/f/xpwrprzr" method="POST">
-        <label>Nome*</label>
-        <input type="text" name="Nome" required />
-
-        <label>Cognome*</label>
-        <input type="text" name="Cognome" required />
-
-        <label>Email*</label>
-        <input type="email" name="Email" required />
-
-        <label>Telefono</label>
-        <input id="phone" type="tel" name="Telefono" />
-
-        <label>Numero totale ospiti*</label>
-        <input type="number" name="Totale ospiti" required min="1" />
-
-        <label>Adulti (16+)*</label>
-        <input type="number" name="Adulti" min="0" required />
-
-        <label>Ragazzi (6–16)*</label>
-        <input type="number" name="Ragazzi" min="0" required />
-
-        <label>Bambini (0–6)*</label>
-        <input type="number" name="Bambini" min="0" required />
-
-        <label>Check-in*</label>
-        <input type="date" name="Check-in" required />
-
-        <label>Check-out*</label>
-        <input type="date" name="Check-out" required />
-
-        <label>Messaggio</label>
-        <textarea name="Messaggio" rows="5"></textarea>
-
-        <label class="consent">
-          <input type="checkbox" name="Consenso" required />
-          Acconsento al trattamento dei miei dati personali da parte del proprietario dell'immobile Altrove.
-        </label>
-
-        <button type="submit" class="btn">Invia</button>
-      </form>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- FOOTER -->
   <footer class="contact-footer">
-    <a href="https://instagram.com/altrove_leukerbad" target="_blank" aria-label="Instagram">
+    <a href="https://instagram.com/altrove_leukerbad" target="_blank" rel="noopener" aria-label="Instagram">
       <img src="icons/instagram.svg" alt="Instagram" />
     </a>
     <a href="mailto:altrove.leukerbad@gmail.com" aria-label="Email">
       <img src="icons/email.svg" alt="Email" />
     </a>
-    <a href="https://wa.me/41762743707" target="_blank" aria-label="WhatsApp">
+    <a href="https://wa.me/41762743707" target="_blank" rel="noopener" aria-label="WhatsApp">
       <img src="icons/whatsapp.svg" alt="WhatsApp" />
     </a>
   </footer>
 
-<!-- Torna alla Home -->
-<div style="display: flex; justify-content: center; margin: 60px 0 40px;">
-  <a href="index.html" style="
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #000;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  ">
-    Torna alla Home
-  </a>
-</div>
+  <!-- Torna alla Home (mobile, facoltativo) -->
+  <div class="back-home">
+    <a class="back-home-btn" href="index.html">Torna alla Home</a>
+  </div>
 
-</div>
+  <!-- STILI specifici della sezione (puoi spostarli nel tuo CSS globale) -->
+  <style>
+    :root{
+      --altrove-nero:#111;
+      --altrove-grigio:#6b7280;
+      --altrove-bg:#fafafa;
+      --booking-blu:#003580;
+    }
+    .contact-section{padding:clamp(1.5rem,2.5vw,3rem) 1rem; max-width:1100px; margin:0 auto;}
+    .contact-head h2{font-size:clamp(1.6rem,3vw,2.2rem); margin:.2rem 0 .6rem;}
+    .contact-head p{color:#333; line-height:1.55;}
 
+    .contact-container{display:grid; gap:1.25rem; grid-template-columns:1fr;}
+    @media (min-width:900px){.contact-container{grid-template-columns:1.1fr .9fr;}}
 
-  <!-- JS per prefisso internazionale -->
-  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+    .map-container{position:relative; padding-top:65%; border-radius:1rem; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.08);}
+    .map-container iframe{position:absolute; inset:0; width:100%; height:100%;}
+
+    .cta-card{background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:1.1rem; padding:1.25rem; box-shadow:0 10px 28px rgba(0,0,0,.06);} 
+    .cta-card h3{margin:.2rem 0 .6rem; font-size:1.35rem;}
+    .cta-card p{color:var(--altrove-grigio);}
+
+    .booking-cta{display:inline-flex; align-items:center; gap:.75rem; text-decoration:none; background:#fff; border:2px solid var(--booking-blu); padding:.85rem 1.05rem; border-radius:.9rem; transition:transform .15s ease, box-shadow .15s ease, background .15s ease; box-shadow:0 8px 20px rgba(0,53,128,.12);} 
+    .booking-cta:hover{transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,53,128,.16); background:#f7fbff;}
+    .booking-cta .logo{display:inline-flex; width:38px; height:38px;}
+    .booking-cta .logo svg{display:block; width:100%; height:100%; border-radius:.6rem;}
+    .booking-cta .text{font-weight:600; color:var(--booking-blu);}
+    .tip{margin:.9rem 0 0;}
+    .aux{margin-top:.9rem;}
+    .ghost{text-decoration:none; border-bottom:1px solid rgba(0,0,0,.15); color:var(--altrove-nero);} 
+    .ghost:hover{border-bottom-color:rgba(0,0,0,.35);} 
+
+    .contact-footer{display:flex; justify-content:center; gap:1rem; padding:2rem 0;}
+    .contact-footer img{width:28px; height:28px;}
+
+    .back-home{display:flex; justify-content:center; margin:40px 0;}
+    .back-home-btn{display:inline-block; padding:15px 30px; background:#000; color:#fff; font-size:18px; font-weight:700; text-decoration:none; border-radius:30px; box-shadow:0 4px 6px rgba(0,0,0,.1);} 
+  </style>
+
+  <!-- JS: hamburger/menu -->
   <script>
-    const phoneInput = document.querySelector("#phone");
-    intlTelInput(phoneInput, {
-      separateDialCode: true,
-      initialCountry: "ch",
-      preferredCountries: ["ch", "it", "fr", "de", "gb"],
-      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js"
-    });
+    (function () {
+      const btn = document.querySelector('.hamburger');
+      const menu = document.getElementById('site-menu');
+      if (!btn || !menu) return;
 
-    // Reindirizza dopo invio a thank-you.html
-    const form = document.getElementById('contactForm');
-    form.addEventListener('submit', function (e) {
-      setTimeout(() => {
-        window.location.href = 'thank-you.html';
-      }, 200);
-    });
+      let overlay;
+
+      function openMenu() {
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        menu.hidden = false;
+
+        overlay = document.createElement('div');
+        overlay.className = 'menu-overlay';
+        overlay.addEventListener('click', closeMenu);
+        document.body.appendChild(overlay);
+
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+        if (overlay) { overlay.remove(); overlay = null; }
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('is-open');
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      menu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
+      });
+    })();
   </script>
+
+  <!-- Service worker (PWA) -->
   <script>
-  (function () {
-    const btn = document.querySelector('.hamburger');
-    const menu = document.getElementById('site-menu');
-    if (!btn || !menu) return;
-
-    let overlay;
-
-    function openMenu() {
-      btn.classList.add('is-open');
-      btn.setAttribute('aria-expanded', 'true');
-      menu.hidden = false;
-
-      overlay = document.createElement('div');
-      overlay.className = 'menu-overlay';
-      overlay.addEventListener('click', closeMenu);
-      document.body.appendChild(overlay);
-
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js");
+      });
     }
-
-    function closeMenu() {
-      btn.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      menu.hidden = true;
-      if (overlay) { overlay.remove(); overlay = null; }
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    }
-
-    btn.addEventListener('click', () => {
-      const isOpen = btn.classList.contains('is-open');
-      isOpen ? closeMenu() : openMenu();
-    });
-
-    // Chiudi al click su un link del menu
-    menu.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') closeMenu();
-    });
-
-    // Chiudi con ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
-    });
-  })();
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js");
-  });
-}
-</script>
-
+  </script>
 </body>
 </html>
