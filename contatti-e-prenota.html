@@ -103,7 +103,13 @@
       --altrove-bg:#fafafa;
       --booking-blu:#003580;
     }
-    .contact-section{padding:clamp(1.5rem,2.5vw,3rem) 1rem; max-width:1100px; margin:0 auto;}
+    .contact-section{
+  padding:clamp(3.5rem,5vw,5rem) 1rem 3rem; /* più spazio sopra */
+  max-width:1100px;
+  margin:0 auto;
+  scroll-margin-top:100px; /* evita che venga coperta dalla barra */
+}
+
     .contact-head h2{font-size:clamp(1.6rem,3vw,2.2rem); margin:.2rem 0 .6rem;}
     .contact-head p{color:#333; line-height:1.55;}
 
