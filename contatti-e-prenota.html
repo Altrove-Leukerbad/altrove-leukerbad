@@ -144,14 +144,21 @@
   width:30px;
   height:30px;
   object-fit:contain;
+  transition: transform 0.25s ease;
 }
 
 /* Ingrossa l’icona email per compensare il margine interno del file SVG */
 .contact-footer a[href^="mailto"] img{
   width:38px;
   height:38px;
-  transform: translateY(-2px); /* riallinea perfettamente in verticale */
+  transform: translateY(-2px);
 }
+
+/* Effetto hover su tutte le icone (inclusa la busta) */
+.contact-footer a:hover img{
+  transform: scale(1.1) translateY(-2px);
+}
+
   </style>
 
   <!-- JS: hamburger/menu -->
