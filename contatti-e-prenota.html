@@ -53,13 +53,6 @@
 
       <div class="cta-col">
         <div class="cta-card">
-          <!-- FRASE PREMIUM INSERITA QUI -->
-          <p class="premium-line" style="margin-bottom:1.2rem; font-size:0.95rem; color:#333; line-height:1.45;">
-            <strong>Prezzi a partire da 160 CHF a notte.</strong><br>
-            Il totale varia in base al numero di ospiti e al periodo selezionato.<br>
-            Pulizie finali, biancheria, parcheggio coperto e Guest Card sono sempre inclusi.
-          </p>
-
           <h3>Prenota la tua vacanza</h3>
           <p>Per prenotazioni usa direttamente Booking.com: veloce, sicuro e con calendario sempre aggiornato.</p>
 
@@ -75,7 +68,9 @@
           </a>
 
           <p class="tip">Suggerimento: aggiungi la pagina ai preferiti per controllare disponibilità e prezzi in un attimo.</p>
-          <div class="aux"></div>
+          <div class="aux">
+  
+          </div>
         </div>
       </div>
     </div>
@@ -94,10 +89,128 @@
     </a>
   </footer>
 
-  <!-- Torna alla Home -->
+  <!-- Torna alla Home (mobile, facoltativo) -->
   <div class="back-home">
     <a class="back-home-btn" href="index.html">Torna alla Home</a>
   </div>
 
+  <!-- STILI specifici della sezione (puoi spostarli nel tuo CSS globale) -->
+  <style>
+    :root{
+      --altrove-nero:#111;
+      --altrove-grigio:#6b7280;
+      --altrove-bg:#fafafa;
+      --booking-blu:#003580;
+    }
+    .contact-section{
+  padding:clamp(3.5rem,5vw,5rem) 1rem 3rem; /* più spazio sopra */
+  max-width:1100px;
+  margin:0 auto;
+  scroll-margin-top:100px; /* evita che venga coperta dalla barra */
+}
+
+    .contact-head h2{font-size:clamp(1.6rem,3vw,2.2rem); margin:.2rem 0 .6rem;}
+    .contact-head p{color:#333; line-height:1.55;}
+
+    .contact-container{display:grid; gap:1.25rem; grid-template-columns:1fr;}
+    @media (min-width:900px){.contact-container{grid-template-columns:1.1fr .9fr;}}
+
+    .map-container{position:relative; padding-top:65%; border-radius:1rem; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.08);}
+    .map-container iframe{position:absolute; inset:0; width:100%; height:100%;}
+
+    .cta-card{background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:1.1rem; padding:1.25rem; box-shadow:0 10px 28px rgba(0,0,0,.06);} 
+    .cta-card h3{margin:.2rem 0 .6rem; font-size:1.35rem;}
+    .cta-card p{color:var(--altrove-grigio);}
+
+    .booking-cta{display:inline-flex; align-items:center; gap:.75rem; text-decoration:none; background:#fff; border:2px solid var(--booking-blu); padding:.85rem 1.05rem; border-radius:.9rem; transition:transform .15s ease, box-shadow .15s ease, background .15s ease; box-shadow:0 8px 20px rgba(0,53,128,.12);} 
+    .booking-cta:hover{transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,53,128,.16); background:#f7fbff;}
+    .booking-cta .logo{display:inline-flex; width:38px; height:38px;}
+    .booking-cta .logo svg{display:block; width:100%; height:100%; border-radius:.6rem;}
+    .booking-cta .text{font-weight:600; color:var(--booking-blu);}
+    .tip{margin:.9rem 0 0;}
+    .aux{margin-top:.9rem;}
+    .ghost{text-decoration:none; border-bottom:1px solid rgba(0,0,0,.15); color:var(--altrove-nero);} 
+    .ghost:hover{border-bottom-color:rgba(0,0,0,.35);} 
+
+    .contact-footer{display:flex; justify-content:center; gap:1rem; padding:2rem 0;}
+    .contact-footer img{width:28px; height:28px;}
+
+    .back-home{display:flex; justify-content:center; margin:40px 0;}
+    .back-home-btn{display:inline-block; padding:15px 30px; background:#000; color:#fff; font-size:18px; font-weight:700; text-decoration:none; border-radius:30px; box-shadow:0 4px 6px rgba(0,0,0,.1);} 
+  /* --- Correzione dimensione icona email nel footer --- */
+.contact-footer img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  transition: transform 0.25s ease;
+}
+
+.contact-footer a[href^="mailto"] img{
+  width:38px;
+  height:38px;
+  transform: translateY(-2px);
+}
+
+.contact-footer a:hover img{
+  transform: scale(1.1) translateY(-2px);
+}
+
+  </style>
+
+  <!-- JS: hamburger/menu -->
+  <script>
+    (function () {
+      const btn = document.querySelector('.hamburger');
+      const menu = document.getElementById('site-menu');
+      if (!btn || !menu) return;
+
+      let overlay;
+
+      function openMenu() {
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        menu.hidden = false;
+
+        overlay = document.createElement('div');
+        overlay.className = 'menu-overlay';
+        overlay.addEventListener('click', closeMenu);
+        document.body.appendChild(overlay);
+
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+        if (overlay) { overlay.remove(); overlay = null; }
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('is-open');
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      menu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
+      });
+    })();
+  </script>
+
+  <!-- Service worker (PWA) -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js");
+      });
+    }
+  </script>
 </body>
 </html>
